@@ -1,11 +1,11 @@
 # python cheat sheet from EDA process
 
->**get appear number of different value type for categoric data**
+>**get appear number of different value type for categoric data**\
 `s.value_counts(normalize=True)`
 
 >**generate the boolean flags indicating missing rows and columns**\
 `missingRows = pd.isnull(ncbirths).sum(axis=1) > 0`\
-`missingCols = pd.isnull(ncbirths).sum(axis=0) > 0`\
+`missingCols = pd.isnull(ncbirths).sum(axis=0) > 0`
 
 
 >**columns sum(sum all rows)**\
