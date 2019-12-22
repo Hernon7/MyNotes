@@ -15,7 +15,7 @@
 `df.sum(axis=1)`
 
 >**how to sort a dictionary according to values**\
-`sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]`
+`sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]`\
 *Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.*\
 *In Python Dictionary, items() method is used to return the list with all dictionary keys with values.*
 
