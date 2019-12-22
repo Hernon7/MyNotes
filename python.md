@@ -1,4 +1,4 @@
-# Python cheat sheet from EDA process
+# Python cheat sheet for EDA process
 
 >**get appear number of different value type for categoric data**\
 `s.value_counts(normalize=True)`
