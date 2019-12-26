@@ -47,3 +47,13 @@ def assess_NA(data):
     return df_NA
 ```
 ---
+>**import packages**
+```
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib as plt
+import seaborn as sns
+%matplotlib inline
+```
+---
