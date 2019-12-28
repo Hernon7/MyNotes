@@ -13,7 +13,7 @@ pd.set_option('display.max_rows', None)
 ```
 ---
 >**get col and row for a dataframe**\
-`count_row = df.shape[0]`
+`count_row = df.shape[0]`\
 `count_col = df.shape[1]`
 
 >**get appear number of different value type for categoric data**\
