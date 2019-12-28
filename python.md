@@ -1,4 +1,17 @@
 # Python cheat sheet for EDA process
+---
+>**import packages**
+```
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib as plt
+import seaborn as sns
+%matplotlib inline
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
+```
+---
 
 >**get appear number of different value type for categoric data**\
 `s.value_counts(normalize=True)`
@@ -46,16 +59,3 @@ def assess_NA(data):
     
     return df_NA
 ```
----
->**import packages**
-```
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib as plt
-import seaborn as sns
-%matplotlib inline
-pd.set_option('display.max_columns', None)
-pd.set_option('display.max_rows', None)
-```
----
