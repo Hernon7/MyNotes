@@ -62,3 +62,14 @@ def assess_NA(data):
     
     return df_NA
 ```
+---
+>**function used to deal with missing values**
+```
+def assess_unique(data):
+    df = data.value_counts().to_frame()
+    count_row = df.shape[0]
+    df = df.set_axis(['Counts'], axis=1, inplace=False)
+    df['Percentage'] = df['Counts']/count_row
+    return df
+```
+---
