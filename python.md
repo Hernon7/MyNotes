@@ -1,6 +1,7 @@
 # Python cheat sheet for EDA process
 ---
->**import packages**
+**import packages**
+
 ```
 import numpy as np
 import pandas as pd
@@ -13,9 +14,10 @@ pd.set_option('display.max_rows', None)
 ```
 ---
 >**get col and row for a dataframe**\
-`count_row = df.shape[0]`\
-`count_col = df.shape[1]`
-
+```python
+count_row = df.shape[0]
+count_col = df.shape[1]
+```
 >**get appear number of different value type for categoric data**\
 `s.value_counts(normalize=True)`
 
@@ -39,7 +41,7 @@ pd.set_option('display.max_rows', None)
 `quantity_col = [col for col in rawdf.columns if 'Quantity' in col]`
 ---
 >**function used to deal with missing values**
-```
+```python
 def assess_NA(data):
     """
     Returns a pandas dataframe denoting the total number of NA values and the percentage of NA values in each column.
@@ -73,3 +75,6 @@ def assess_unique(data):
     return df
 ```
 ---
+# Python cheat sheet for Machine Learning
+---
+
