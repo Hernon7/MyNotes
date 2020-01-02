@@ -12,7 +12,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 ```
 ---
-**Get col and row for a dataframe**
+**Get col and row number for a dataframe**
 ```python
 count_row = df.shape[0]
 count_col = df.shape[1]
@@ -50,7 +50,7 @@ In Python Dictionary, items() method is used to return the list with all diction
 quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 ```
 ---
-**Function used to deal with missing values**
+**Function for dealing with missing values**
 ```python
 def assess_NA(data):
     """
@@ -75,7 +75,7 @@ def assess_NA(data):
     return df_NA
 ```
 ---
-**Function used to deal with missing values**
+**Function for dealing with unique values**
 ```python
 def assess_unique(data):
     df = data.value_counts().to_frame()
