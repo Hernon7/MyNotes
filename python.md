@@ -87,5 +87,34 @@ def assess_unique(data):
 ---
 # Python cheat sheet for Machine Learning
 ---
+### **RandomForest**
+>[RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)\
+[RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
 
+**Train & Fit**
+```python
+#import ML packages
+from sklearn.ensemble import RandomForestClassifier
+rnd_clf = RandomForestClassifier(n_estimators= 500, max_leaf_nodes= 16,n_jobs= -1)
+rnd_clf.fit(X_train,Y_train)
+```
+**LabelEncoder**
+```python
+from sklearn import preprocessing 
+#LabelEncoder: turn tring into incremental value
+def LabelEncoder(df):
+    le = preprocessing.LabelEncoder()
+    for column_name in df.columns:
+        if df[column_name].dtype == object:
+            df[column_name] = le.fit_transform(df[column_name])
+        else:
+            pass
+```
+
+
+
+
+
+
+---
 #### [Markdown Demo](https://markdown-it.github.io/)
