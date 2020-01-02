@@ -1,8 +1,7 @@
 # Python cheat sheet for EDA process
 ---
-**import packages**
-
-```
+**Import packages**
+```python
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -13,34 +12,45 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 ```
 ---
->**get col and row for a dataframe**\
+**Get col and row for a dataframe**
 ```python
 count_row = df.shape[0]
 count_col = df.shape[1]
 ```
->**get appear number of different value type for categoric data**\
-`s.value_counts(normalize=True)`
+**Get appear number of different value type for categoric data**
+```python
+s.value_counts(normalize=True)
+```
+**Generate the boolean flags indicating missing rows and columns**
+```python
+missingRows = pd.isnull(ncbirths).sum(axis=1) > 0
+missingCols = pd.isnull(ncbirths).sum(axis=0) > 0
+```
 
->**generate the boolean flags indicating missing rows and columns**\
-`missingRows = pd.isnull(ncbirths).sum(axis=1) > 0`\
-`missingCols = pd.isnull(ncbirths).sum(axis=0) > 0`
+**Columns sum(sum all rows)**
+```python
+df.sum(axis=0)
+```
 
+**Rows sum(sum all cols):**
+```python
+df.sum(axis=1)
+```
 
->**columns sum(sum all rows)**\
-`df.sum(axis=0)`
+**How to sort a dictionary according to values**
+```python
+sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
+```
 
->**rows sum(sum all cols):**\
-`df.sum(axis=1)`
+>Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.\
+In Python Dictionary, items() method is used to return the list with all dictionary keys with values.
 
->**how to sort a dictionary according to values**\
-`sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]`\
-*Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.*\
-*In Python Dictionary, items() method is used to return the list with all dictionary keys with values.*
-
->**find columns that contain specific string**\
-`quantity_col = [col for col in rawdf.columns if 'Quantity' in col]`
+**Find columns that contain specific string**
+```python
+quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
+```
 ---
->**function used to deal with missing values**
+**Function used to deal with missing values**
 ```python
 def assess_NA(data):
     """
@@ -65,8 +75,8 @@ def assess_NA(data):
     return df_NA
 ```
 ---
->**function used to deal with missing values**
-```
+**Function used to deal with missing values**
+```python
 def assess_unique(data):
     df = data.value_counts().to_frame()
     count_row = df.shape[0]
@@ -78,3 +88,4 @@ def assess_unique(data):
 # Python cheat sheet for Machine Learning
 ---
 
+#### [Markdown Demo](https://markdown-it.github.io/)
