@@ -10,31 +10,18 @@ group by item
 having count(*) >= num;
 ```
 
+### Convert date time
+
+```sql
+SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
+```
+
 ### Find item looks like some value
 
 ```sql
 SELECT column1, column2, ...
 FROM table_name
 WHERE columnN LIKE pattern;
-```
-
-### Find Median number
-
-```sql
-SUM(CASE
-    WHEN Employee.Salary = alias.Salary THEN 1
-    ELSE 0
-END) >= ABS(SUM(SIGN(Employee.Salary - alias.Salary)))
-# sign() return the sign of the number: if positive then 1, negative then -1
-```
-
->The median's frequency should be equal or grater than the absolute difference of its bigger elements and small ones in an array no matter whether it has odd or even amount of numbers and whether they are distinct. This rule is the key, and it is represented as the previous code.
-
-
-### Convert date time
-
-```sql
-SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 ```
 
 |LIKE Operator|Description|
@@ -53,6 +40,19 @@ SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 ```sql
 dbms_output.put_line('student name is  ' || v_variable_name);
 ```
+
+### Find Median number
+
+```sql
+SUM(CASE
+    WHEN Employee.Salary = alias.Salary THEN 1
+    ELSE 0
+END) >= ABS(SUM(SIGN(Employee.Salary - alias.Salary)))
+# sign() return the sign of the number: if positive then 1, negative then -1
+```
+
+>The median's frequency should be equal or grater than the absolute difference of its bigger elements and small ones in an array no matter whether it has odd or even amount of numbers and whether they are distinct. This rule is the key, and it is represented as the previous code.
+
 ### Loop
 
 ```sql
