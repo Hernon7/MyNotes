@@ -18,6 +18,19 @@ FROM table_name
 WHERE columnN LIKE pattern;
 ```
 
+### Find Median number
+
+```sql
+SUM(CASE
+    WHEN Employee.Salary = alias.Salary THEN 1
+    ELSE 0
+END) >= ABS(SUM(SIGN(Employee.Salary - alias.Salary)))
+# sign() return the sign of the number: if positive then 1, negative then -1
+```
+
+>The median's frequency should be equal or grater than the absolute difference of its bigger elements and small ones in an array no matter whether it has odd or even amount of numbers and whether they are distinct. This rule is the key, and it is represented as the previous code.
+
+
 ### Convert date time
 
 ```sql
