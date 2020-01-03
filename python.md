@@ -1,8 +1,10 @@
-### Python cheat sheet for EDA process
+# Python cheat sheet for Data Scienct
+## EDA Process
+### Useful Tools
 
 ---
 
-##### Import packages
+#### Import packages
 
 ```python
 import numpy as np
@@ -17,13 +19,14 @@ pd.set_option('display.max_rows', None)
 
 ---
 
-##### Get col and row number for a dataframe
+#### Get col and row number for a dataframe
 
 ```python
 count_row = df.shape[0]
 count_col = df.shape[1]
 ```
-**Get appear number of different value type for categoric data**
+
+#### Get appear number of different value type for categoric data
 
 ```python
 s.value_counts(normalize=True)
