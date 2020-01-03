@@ -1,8 +1,8 @@
 # Python cheat sheet for Data Scienct
-## EDA Process
-### Useful Tools
 
----
+## EDA Process
+
+### Useful Tools
 
 #### Import packages
 
@@ -17,8 +17,6 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 ```
 
----
-
 #### Get col and row number for a dataframe
 
 ```python
@@ -32,14 +30,14 @@ count_col = df.shape[1]
 s.value_counts(normalize=True)
 ```
 
-**Generate the boolean flags indicating missing rows and columns**
+#### Generate the boolean flags indicating missing rows and columns
 
 ```python
 missingRows = pd.isnull(ncbirths).sum(axis=1) > 0
 missingCols = pd.isnull(ncbirths).sum(axis=0) > 0
 ```
 
-**Columns sum(sum all rows)**
+#### Columns sum(sum all rows)
 
 ```python
 df.sum(axis=0)
@@ -51,7 +49,7 @@ df.sum(axis=0)
 df.sum(axis=1)
 ```
 
-**How to sort a dictionary according to values**
+#### How to sort a dictionary according to values
 
 ```python
 sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
@@ -60,7 +58,7 @@ sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 >Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.\
 In Python Dictionary, items() method is used to return the list with all dictionary keys with values.
 
-**Find columns that contain specific string**
+#### Find columns that contain specific string
 
 ```python
 quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
@@ -68,7 +66,7 @@ quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 
 ---
 
-**Function for dealing with missing values**
+#### Function for dealing with missing values
 
 ```python
 def assess_NA(data):
@@ -91,8 +89,7 @@ def assess_NA(data):
     return df_NA
 ```
 
----
-**Function for dealing with unique values**
+#### Function for dealing with unique values
 
 ```python
 def assess_unique(data):
@@ -105,16 +102,16 @@ def assess_unique(data):
 
 ---
 
-# Python cheat sheet for Machine Learning
+## Python cheat sheet for Machine Learning
 
 ---
 
-### **RandomForest**
+### RandomForest
 
 >[RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)\
 [RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
 
-**Train & Fit**
+#### Train & Fit
 
 ```python
 #import ML packages
@@ -123,7 +120,7 @@ rnd_clf = RandomForestClassifier(n_estimators= 500, max_leaf_nodes= 16,n_jobs= -
 rnd_clf.fit(X_train,Y_train)
 ```
 
-**LabelEncoder**
+#### LabelEncoder
 
 ```python
 from sklearn import preprocessing 
