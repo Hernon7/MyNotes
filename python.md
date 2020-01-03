@@ -2,7 +2,7 @@
 
 ## EDA Process
 
-### Useful Tools
+### Useful Quarries
 
 #### Import packages
 
@@ -65,6 +65,8 @@ quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 ```
 
 ---
+
+### Useful Functions
 
 #### Function for dealing with missing values
 
@@ -134,10 +136,6 @@ def LabelEncoder(df):
             pass
 ```
 
-
-
-
-
-
 ---
+
 #### [Markdown Demo](https://markdown-it.github.io/)
