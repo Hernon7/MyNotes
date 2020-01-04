@@ -71,7 +71,7 @@ END
 ### Case when
 
 ```sql
-#example 1
+--example 1
 DECLARE
    jobid      employees.job_id%TYPE;
    empid      employees.employee_id%TYPE := 115;
@@ -87,7 +87,7 @@ BEGIN
 END;
 /
 
-#example 2
+--example 2
 SELECT CustomerName, City, Country
 FROM Customers
 ORDER BY
@@ -96,6 +96,41 @@ ORDER BY
     ELSE City
 END);
 
+```
+
+### Create table if it does not exist
+
+```sql
+DECLARE
+
+    temp_nm        INT;
+BEGIN
+    SELECT
+        COUNT(*)
+    INTO temp_nm
+    FROM
+        user_tables
+    WHERE
+        table_name = upper('hw6_employee_table');
+
+    IF temp_nm = 0 THEN
+--create the table if it not exist
+        EXECUTE IMMEDIATE 'CREATE TABLE hw6_employee_table
+      ( EMPLOYEE_ID number(6),
+       FIRST_NAME varchar2(255),
+       LAST_NAME varchar2(255),
+       EMAIL varchar2(255),
+       PHONE_NUMBER varchar2(255),
+       HIRE_DATE date,
+       JOB_ID varchar2(255),
+       SALARY number(6),
+       COMMISSION_PCT number(6),
+       MANAGER_ID number(6),
+       DEPARTMENT_ID number(6)
+      )'
+        ;
+    END IF;
+end;
 ```
 
 ---
