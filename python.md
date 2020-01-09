@@ -162,6 +162,19 @@ df = spark.read.parquet('file_path')
 df.createOrReplaceTempView('df')
 ```
 
+### Output dataframe and the Schema
+
+```python
+df.show()
+df.printSchema()
+```
+
+### Using SQL in PySpark
+
+```python
+spark.sql('select class,count(*) from df group by class').show()
+```
+
 ---
 
 #### [Markdown Demo](https://markdown-it.github.io/)
