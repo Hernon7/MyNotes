@@ -175,6 +175,41 @@ df.printSchema()
 spark.sql('select class,count(*) from df group by class').show()
 ```
 
+### Using PySpark function
+
+```python
+df.groupBy('class').count().show()
+```
+
+### Using pixiedust
+
+```python
+import pixiedust
+from pyspark.sql.functions import col
+counts = df.groupBy('class').count().orderBy('count')
+display(counts)
+```
+
+### ETL process
+
+```python
+#import packages for ETL process
+from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorAssembler, Normalizer, MinMaxScaler
+from pyspark.ml.linalg import Vectors
+from pyspark.ml import Pipeline
+
+indexer = StringIndexer(inputCol="class", outputCol="classIndex")
+encoder = OneHotEncoder(inputCol="classIndex", outputCol="categoryVec")
+vectorAssembler = VectorAssembler(inputCols=["x","y","z"],
+                                  outputCol="features")
+normalizer = Normalizer(inputCol="features", outputCol="features_norm", p=1.0)
+minmaxscaler = MinMaxScaler(inputCol="features_norm", outputCol="scaledFeatures")
+pipeline = Pipeline(stages=[indexer, encoder, vectorAssembler, normalizer,minmaxscaler])
+model = pipeline.fit(df)
+prediction = model.transform(df)
+prediction.show()
+```
+
 ---
 
 #### [Markdown Demo](https://markdown-it.github.io/)
