@@ -138,4 +138,30 @@ def LabelEncoder(df):
 
 ---
 
+## PySpark
+
+### Import packagess
+
+```python
+import findspark
+import pyspark
+findspark.init()
+from pyspark import SparkContext
+from pyspark.sql.session import SparkSession
+sc =SparkContext()#SparkContext
+spark = SparkSession(sc)
+```
+
+### Create spark dataframe from a file
+
+```python
+# create a dataframe 
+df = spark.read.parquet('file_path')
+
+# register a corresponding query table
+df.createOrReplaceTempView('df')
+```
+
+---
+
 #### [Markdown Demo](https://markdown-it.github.io/)
