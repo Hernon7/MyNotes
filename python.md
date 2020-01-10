@@ -1,4 +1,4 @@
-# Python cheat sheet for Data Scienct
+# <center>Python cheat sheet for Data Scienct</center>
 
 ## EDA Process
 
