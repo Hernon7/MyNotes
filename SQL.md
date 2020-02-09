@@ -133,6 +133,15 @@ BEGIN
 end;
 ```
 
+### With Statement
+
+```sql
+with CTE as
+(select S.product_id, P.product_name, S.buyer_id from Sales S left join Product P on S.product_id = P.product_id)
+
+select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
+```
+
 ---
 
 ### [Markdown Demo](https://markdown-it.github.io/)
