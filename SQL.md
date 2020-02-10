@@ -142,6 +142,18 @@ with CTE as
 select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
 ```
 
+### Group by and show count with zero value
+
+```sql
+SELECT posts.sub_id AS post_id,
+       nvl(count(DISTINCT comments.sub_id), 0) AS number_of_comments
+FROM Submissions posts
+LEFT JOIN Submissions comments ON posts.sub_id = comments.parent_id
+WHERE posts.parent_id IS NULL
+GROUP BY posts.sub_id
+ORDER BY posts.sub_id;
+```
+
 ---
 
 ### [Markdown Demo](https://markdown-it.github.io/)
