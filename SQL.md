@@ -33,6 +33,27 @@ WHERE columnN LIKE pattern;
 |WHERE CustomerName LIKE 'a__%'|Finds any values that start with "a" and are at least 3 characters in length|
 |WHERE ContactName LIKE 'a%o'|Finds any values that start with "a" and ends with "o"|
 
+### With Statement
+
+```sql
+with CTE as
+(select S.product_id, P.product_name, S.buyer_id from Sales S left join Product P on S.product_id = P.product_id)
+
+select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
+```
+
+### Group by and show count with zero value
+
+```sql
+SELECT posts.sub_id AS post_id,
+       nvl(count(DISTINCT comments.sub_id), 0) AS number_of_comments
+FROM Submissions posts
+LEFT JOIN Submissions comments ON posts.sub_id = comments.parent_id
+WHERE posts.parent_id IS NULL
+GROUP BY posts.sub_id
+ORDER BY posts.sub_id;
+```
+
 ## **PL/SQL**
 
 ### Output in Oracle/SQL
@@ -131,27 +152,6 @@ BEGIN
         ;
     END IF;
 end;
-```
-
-### With Statement
-
-```sql
-with CTE as
-(select S.product_id, P.product_name, S.buyer_id from Sales S left join Product P on S.product_id = P.product_id)
-
-select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
-```
-
-### Group by and show count with zero value
-
-```sql
-SELECT posts.sub_id AS post_id,
-       nvl(count(DISTINCT comments.sub_id), 0) AS number_of_comments
-FROM Submissions posts
-LEFT JOIN Submissions comments ON posts.sub_id = comments.parent_id
-WHERE posts.parent_id IS NULL
-GROUP BY posts.sub_id
-ORDER BY posts.sub_id;
 ```
 
 ---
