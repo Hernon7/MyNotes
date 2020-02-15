@@ -205,3 +205,34 @@ Here, you’ve used super() to call the __init__() of the Rectangle class, allow
 ```
 
 In this example, Rectangle is the superclass, and Square is the subclass.
+
+### What Can _super()_ Do for You?
+
+Like in other object-oriented languages, it allows you to call methods of the superclass in your subclass. The primary use case of this is to extend the functionality of the inherited method.
+
+In the example below, you will create a class Cube that inherits from Square and extends the functionality of _.area()_ (inherited from the Rectangle class through Square) to calculate the surface area and volume of a Cube instance:
+
+```python
+class Square(Rectangle):
+    def __init__(self, length):
+        super().__init__(length, length)
+
+class Cube(Square):
+    def surface_area(self):
+        face_area = super().area()
+        return face_area * 6
+
+    def volume(self):
+        face_area = super().area()
+        return face_area * self.length
+```
+
+Now that you’ve built the classes, let’s look at the surface area and volume of a cube with a side length of 3:
+
+```python
+>>> cube = Cube(3)
+>>> cube.surface_area()
+54
+>>> cube.volume()
+27
+```
