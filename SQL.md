@@ -136,7 +136,7 @@ BEGIN
 
     IF temp_nm = 0 THEN
 --create the table if it not exist
-        EXECUTE IMMEDIATE 'CREATE TABLE hw6_employee_table
+EXECUTE IMMEDIATE 'CREATE TABLE hw6_employee_table
       ( EMPLOYEE_ID number(6),
        FIRST_NAME varchar2(255),
        LAST_NAME varchar2(255),
@@ -150,7 +150,7 @@ BEGIN
        DEPARTMENT_ID number(6)
       )'
         ;
-    END IF;
+END IF;
 end;
 ```
 

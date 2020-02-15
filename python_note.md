@@ -18,7 +18,6 @@ scott = Student('Scott',  'Robinson')
 
 #### Similar *@classmethod* method would be used like this instead:
 
-
 ```python
 class Student(object):
 
@@ -34,7 +33,6 @@ scott = Student.from_string('Scott Robinson')
 This follows the static factory pattern very well, encapsulating the parsing logic inside of the method itself.
 
 The above example is a very simple one, but you can imagine more complicated examples that make this more attractive. Imagine if a Student object could be serialized in to many different formats. You could use this same strategy to parse them all:
-
 
 ```python
 class Student(object):
@@ -121,10 +119,89 @@ except:
 
 ```
 
-```
+```cmd
 $ python static.py
 Got grades: [90, 80, 85, 94, 70]
 Invalid!
 ```
 
 Notice how the static methods can even work together with *from_csv* calling validate using the *cls* object. Running the code above should print out an array of valid grades, and then fail on the second attempt, thus printing out "Invalid!".
+
+## Python’s _super()_ Function
+
+### Overview
+
+High level super() gives you access to methods in a superclass from the subclass that inherits from it.\
+_super()_ alone returns a temporary object of the superclass that then allows you to call that superclass’s methods.\
+Calling the previously built methods with super() saves you from needing to rewrite those methods in your subclass, and allows you to swap out superclasses with minimal code changes.
+
+### _super()_ in Single Inheritance
+
+Inheritance is a concept in object-oriented programming in which a class derives (or **inherits**) attributes and behaviors from another class without needing to implement them again.
+
+A class exaple:
+
+```python
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def area(self):
+        return self.length * self.width
+
+    def perimeter(self):
+        return 2 * self.length + 2 * self.width
+
+class Square:
+    def __init__(self, length):
+        self.length = length
+
+    def area(self):
+        return self.length * self.length
+
+    def perimeter(self):
+        return 4 * self.length
+```
+
+You can use them as below:
+
+```python
+>>> square = Square(4)
+>>> square.area()
+16
+>>> rectangle = Rectangle(2,4)
+>>> rectangle.area()
+8
+```
+In this example, you have two shapes that are related to each other: a square is a special kind of rectangle. The code, however, doesn’t reflect that relationship and thus has code that is essentially repeated.
+
+By using inheritance, you can reduce the amount of code you write while simultaneously reflecting the real-world relationship between rectangles and squares:
+
+```python
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def area(self):
+        return self.length * self.width
+
+    def perimeter(self):
+        return 2 * self.length + 2 * self.width
+
+# Here we declare that the Square class inherits from the Rectangle class
+class Square(Rectangle):
+    def __init__(self, length):
+        super().__init__(length, length)s
+```
+
+Here, you’ve used super() to call the __init__() of the Rectangle class, allowing you to use it in the Square class without repeating code. Below, the core functionality remains after making changes:
+
+```python
+>>> square = Square(4)
+>>> square.area()
+16
+```
+
+In this example, Rectangle is the superclass, and Square is the subclass.
