@@ -102,6 +102,15 @@ def assess_unique(data):
     return df
 ```
 
+#### Check NaN of a value
+
+The usual way to test for a NaN is to see if it's equal to itself:
+
+```python
+def isNaN(num):
+    return num != num
+```
+
 ---
 
 ## Python cheat sheet for Machine Learning
