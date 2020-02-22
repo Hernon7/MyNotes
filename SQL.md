@@ -16,6 +16,12 @@ having count(*) >= num;
 SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 ```
 
+### Find record in certain month
+
+```sql
+where to_char(Movie_Rating.created_at, 'mm') = 02
+```
+
 ### Find item looks like some value
 
 ```sql
