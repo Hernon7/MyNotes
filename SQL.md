@@ -18,8 +18,20 @@ SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 
 ### Find record in certain month
 
+> Can't use rownum directly after a group by process, have to select the whole result set then return the first 1 row.
+
 ```sql
+select title from
+(
+select Movies.title ,avg(Movie_Rating.rating) as avg_rating
+from Movie_Rating
+left join Movies
+on Movies.movie_id = Movie_Rating.movie_id
 where to_char(Movie_Rating.created_at, 'mm') = 02
+group by Movies.title
+order by avg_rating desc, Movies.title asc
+)
+where rownum = 1
 ```
 
 ### Find item looks like some value
