@@ -68,7 +68,7 @@ quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 
 ### Useful Functions
 
-#### Function for dealing with missing values
+#### Function showing missing values
 
 ```python
 def assess_NA(data):
@@ -115,6 +115,61 @@ def isNaN(num):
 
 ## Python cheat sheet for Machine Learning
 
+### Sklearn Functions for feature engineering
+
+#### Missing Values
+
+##### SimpleImputer
+
+```python
+# Using SimpleImputer to fill missing values
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(strategy="median")
+imputer.fit(housing_num)
+```
+
+#### Categorical varible
+
+##### OrdinalEncoder
+
+```python
+# Using OrdinalEncoder to convert categorical data
+from sklearn.preprocessing import OrdinalEncoder
+
+ordinal_encoder = OrdinalEncoder()
+housing_cat_encoded = ordinal_encoder.fit_transform(housing_cat)
+housing_cat_encoded[:10]
+
+ordinal_encoder.categories_
+```
+
+##### OneHotEncoder
+
+```python 
+# Using OneHotEncoder to create dummy varables
+from sklearn.preprocessing import OneHotEncoder
+
+cat_encoder = OneHotEncoder()
+housing_cat_1hot = cat_encoder.fit_transform(housing_cat)
+housing_cat_1hot
+```
+
+##### LabelEncoder
+
+```python
+from sklearn import preprocessing 
+#LabelEncoder: turn tring into incremental value
+def LabelEncoder(df):
+    le = preprocessing.LabelEncoder()
+    for column_name in df.columns:
+        if df[column_name].dtype == object:
+            df[column_name] = le.fit_transform(df[column_name])
+        else:
+            pass
+```
+
+#### Feature Scaling
+
 ### RandomForest
 
 >[RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)\
@@ -127,20 +182,6 @@ def isNaN(num):
 from sklearn.ensemble import RandomForestClassifier
 rnd_clf = RandomForestClassifier(n_estimators= 500, max_leaf_nodes= 16,n_jobs= -1)
 rnd_clf.fit(X_train,Y_train)
-```
-
-#### LabelEncoder
-
-```python
-from sklearn import preprocessing 
-#LabelEncoder: turn tring into incremental value
-def LabelEncoder(df):
-    le = preprocessing.LabelEncoder()
-    for column_name in df.columns:
-        if df[column_name].dtype == object:
-            df[column_name] = le.fit_transform(df[column_name])
-        else:
-            pass
 ```
 
 ---
