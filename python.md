@@ -117,7 +117,7 @@ def isNaN(num):
 
 ### Sklearn Functions for feature engineering
 
-#### Missing Values
+#### - Missing Values
 
 ##### SimpleImputer
 
@@ -128,7 +128,7 @@ imputer = SimpleImputer(strategy="median")
 imputer.fit(housing_num)
 ```
 
-#### Categorical varible
+#### - Categorical varible
 
 ##### OrdinalEncoder
 
@@ -168,7 +168,126 @@ def LabelEncoder(df):
             pass
 ```
 
-#### Feature Scaling
+#### - Feature Scaling
+
+##### Normalization 
+
+> Values are shifed and rescaled so that they end up ranging from 0 to 1
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
+scaler = MinMaxScaler()
+
+```
+
+##### Standardization 
+
+> It substracts the mean value(so the standardized value always have a zero mean), and then it divids by the standard deviation so that the resulting distribution has unit variance. Unlike Nornalization, standardization does not bound values to a specific range.
+
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
+num_pipeline = Pipeline([
+        ('imputer', SimpleImputer(strategy="median")),
+        ('attribs_adder', CombinedAttributesAdder()),
+        ('std_scaler', StandardScaler()),
+    ])
+```
+
+### Select and Train a Model
+
+#### Cross-Validation
+
+```python
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(tree_reg, housing_prepared, housing_labels,
+                         scoring="neg_mean_squared_error", cv=10)
+tree_rmse_scores = np.sqrt(-scores)
+
+def display_scores(scores):
+    print("Scores:", scores)
+    print("Mean:", scores.mean())
+    print("Standard deviation:", scores.std())
+
+display_scores(tree_rmse_scores)
+
+lin_scores = cross_val_score(lin_reg, housing_prepared, housing_labels,
+                             scoring="neg_mean_squared_error", cv=10)
+lin_rmse_scores = np.sqrt(-lin_scores)
+display_scores(lin_rmse_scores)
+
+```
+
+### Hyperparameter Tunning
+
+#### Grid Search
+
+```python
+
+from sklearn.model_selection import GridSearchCV
+
+param_grid = [
+    # try 12 (3×4) combinations of hyperparameters
+    {'n_estimators': [3, 10, 30], 'max_features': [2, 4, 6, 8]},
+    # then try 6 (2×3) combinations with bootstrap set as False
+    {'bootstrap': [False], 'n_estimators': [3, 10], 'max_features': [2, 3, 4]},
+  ]
+
+forest_reg = RandomForestRegressor(random_state=42)
+# train across 5 folds, that's a total of (12+6)*5=90 rounds of training 
+grid_search = GridSearchCV(forest_reg, param_grid, cv=5,
+                           scoring='neg_mean_squared_error',
+                           return_train_score=True)
+grid_search.fit(housing_prepared, housing_labels)
+
+
+grid_search.best_params_
+
+
+grid_search.best_estimator_
+
+# The score of each hyperparameter combination tested during the grid search:
+cvres = grid_search.cv_results_
+for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
+    print(np.sqrt(-mean_score), params)
+```
+
+#### Randomized Search
+
+```python
+from sklearn.model_selection import RandomizedSearchCV
+from scipy.stats import randint
+
+param_distribs = {
+        'n_estimators': randint(low=1, high=200),
+        'max_features': randint(low=1, high=8),
+    }
+
+forest_reg = RandomForestRegressor(random_state=42)
+rnd_search = RandomizedSearchCV(forest_reg, param_distributions=param_distribs,
+                                n_iter=10, cv=5, scoring='neg_mean_squared_error', random_state=42)
+rnd_search.fit(housing_prepared, housing_labels)
+
+cvres = rnd_search.cv_results_
+for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
+    print(np.sqrt(-mean_score), params)
+```
+
+#### Feature Importance
+
+```python
+feature_importances = grid_search.best_estimator_.feature_importances_
+feature_importances
+```
+
+#### Final Model
+
+```python
+final_model = grid_search.best_estimator_s
+```
 
 ### RandomForest
 
