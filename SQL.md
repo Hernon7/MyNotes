@@ -172,6 +172,27 @@ END IF;
 end;
 ```
 
+### Triggers
+
+```sql
+create or replace trigger trig_cl12_population_pk
+    before insert on cl12_population
+    for each row
+declare
+    v_population_pk cl12_population.population_pk%type;
+begin
+    if :new.population_pk is null then
+    select seq_cl12_population.nextval
+    into v_population_pk
+    from dual;
+    
+    :new.population_pk := v_population_pk;
+    end if;
+end;
+
+
+
+```
 ---
 
 ### [Markdown Demo](https://markdown-it.github.io/)
