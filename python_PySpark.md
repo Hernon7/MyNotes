@@ -1,4 +1,4 @@
-# Python cheat sheet for Data Science via PySpark
+# Python cheat sheet for PySpark
 
 ## Import packagess
 

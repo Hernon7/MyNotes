@@ -1,4 +1,4 @@
-# <center>SQL Cheaet sheet</center>
+# SQL Cheaet sheet
 
 ## **SQL**(MySQL or  Oracle SQL)
 
