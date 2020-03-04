@@ -2,7 +2,9 @@
 
 ## Factor of 3 and 5
 
-Creat a filter which could return a list of numbers which has and only has two factors: 3 and 5. Like the following example: $Number = 3^x*5^y$ is what we are looking for.
+Creat a filter which could return a list of numbers which has and only has two factors: 3 and 5. Like the following example: 
+
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;Number = 3^x \times 5^y" title="\Large Number = 3^x \times 5^y" />
 
 
 ```python
@@ -44,6 +46,5 @@ def function(ar):
     return sum
 ```
 
-  h<sub>&theta;</sub>(x) = &theta;<sub>o</sub> x + &theta;<sub>1</sub>x
 
-<img src="https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" title="\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" />$ \sum_{\forall i}{x_i^{2}} $
+
