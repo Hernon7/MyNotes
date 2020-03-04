@@ -2,18 +2,13 @@
 
 ## Factor of 3 and 5
 
-Creat a filter which could return a list of numbers which has and only has two factors: 3 and 5. Like the following example.
+Creat a filter which could return a list of numbers which has and only has two factors: 3 and 5. Like the following example: $\mathbf{Number} = 3^x*5^y$ is what we are looking for.
 
-$$
-\mathbf{Number} = 3^x*5^y
-$$
 
 ```python
 input = (1,75)
 return = [15, 45, 75]
 ```
-
-
 
 ```python
 def factor35(low,high):
