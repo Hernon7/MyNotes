@@ -46,6 +46,12 @@ df.sum(axis=0)
 ```python
 df.sum(axis=1)
 ```
+### Make a flat list out of list of lists
+
+```python
+flat_list = [item for sublist in l for item in sublist]
+flatten = lambda l: [item for sublist in l for item in sublist]
+```
 
 ### How to sort a dictionary according to values
 
