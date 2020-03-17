@@ -86,7 +86,7 @@ def jumpingOnClouds(c):
     return step
 ```
 
-## Some
+## New Year's Chaos
 
 It's New Year's Day and everyone's in line for the Wonderland rollercoaster ride! There are a number of people queued up, and each person wears a sticker indicating their initial position in the queue. Initial positions increment by  from  at the front of the line to  **n** at the back.
 
@@ -149,5 +149,101 @@ def minimumBribes(Q):
             if Q[item] > original_p:
                 moves += 1
     print(moves)
+```
+
+## Minimum Swaps
+
+You are given an unordered array consisting of consecutive integers [1, 2, 3, ..., n] without any duplicates. You are allowed to swap any two elements. You need to find the minimum number of swaps required to sort the array in ascending order.
+
+```python	
+def minimumSwaps(arr):
+  
+    ref_arr = sorted(arr)
+    swaps = 0
+    
+    for i,v in enumerate(arr):
+        correct_value = ref_arr[i]
+        if v != correct_value:
+            to_swap_ix = arr.index(correct_value)
+            arr[to_swap_ix],arr[i] = arr[i], arr[to_swap_ix]
+            swaps += 1
+            
+    return swaps
+```
+
+## Array Manipulation
+
+Starting with a 1-indexed array of zeros and a list of operations, for each operation add a value to each of the array element between two given indices, inclusive. Once all operations have been performed, return the maximum value in your array.
+
+For example, the length of your array of zeros **n  = 10** . Your list of queries is as follows:
+
+```
+   a b k
+   1 5 3
+   4 8 7
+   6 9 1
+```
+
+Add the values of **K** between  the indices **a** and **b** inclusive:
+
+```
+index->	 1 2 3  4  5 6 7 8 9 10
+        [0,0,0, 0, 0,0,0,0,0, 0]
+        [3,3,3, 3, 3,0,0,0,0, 0]
+        [3,3,3,10,10,7,7,7,0, 0]
+        [3,3,3,10,10,8,8,8,1, 0]
+```
+
+The largers value is **10** after all operations are performed.
+
+The soluation is like building a array the record the value change after this point:
+
+```
+input:
+5 3
+1 2 100
+2 5 100
+3 4 100
+
+output:
+200
+```
+
+```
+The last row of the final matrix we have :
+100 200 200 200 100
+
+The soluation is like building a array the record the value change after this point:
+
+300
+
+200            ------------
+
+100       ----              ----
+ 
+  0   ----                      ----
+  
+ 1st   100       -100    
+ 2nd         100             -100  
+ 3rd              100    -100
+		    0     1    2   3   4   5
+
+```
+
+```python
+def arrayManipulation(n, queries):
+    array = [0] * (n + 1)
+    for query in queries: 
+        a = query[0] - 1
+        b = query[1]
+        k = query[2]
+        array[a] += k
+        array[b] -= k   
+    max_value = 0
+    running_count = 0
+    for i in array:
+        running_count += i
+        if running_count > max_value:
+            max_value = running_count
 ```
 
