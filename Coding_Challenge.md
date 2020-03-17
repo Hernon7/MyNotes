@@ -226,7 +226,7 @@ The soluation is like building a array the record the value change after this po
  1st   100       -100    
  2nd         100             -100  
  3rd              100    -100
-		    0     1    2   3   4   5
+	0     1    2   3   4   5
 
 ```
 
