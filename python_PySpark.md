@@ -7,9 +7,11 @@ import findspark
 import pyspark
 findspark.init()
 from pyspark import SparkContext
+from pyspark.sql import SQLContext
 from pyspark.sql.session import SparkSession
 sc =SparkContext()#SparkContext
 spark = SparkSession(sc)
+sql_sc = SQLContext(sc)
 ```
 
 ## Create spark dataframe from a file
@@ -21,6 +23,16 @@ df = spark.read.parquet('file_path')
 # register a corresponding query table
 df.createOrReplaceTempView('df')
 ```
+
+```python
+# create a pandas dataframe
+data = pd.read_csv('file_path')
+
+# convert it into Spark dataframe
+df = sql_sc.createDataFrame(data)
+```
+
+
 
 ## Output dataframe and the Schema
 
@@ -39,6 +51,13 @@ spark.sql('select class,count(*) from df group by class').show()
 
 ```python
 df.groupBy('class').count().show()
+df.where("City = 'New York'").select("County").distinct().show()
+```
+
+## Convert a column in to list
+
+```python
+NY_list = s_df.where("City = 'New York'").select('County').distinct().rdd.map(lambda row : row[0]).collect()
 ```
 
 ## Using pixiedust
