@@ -1,6 +1,6 @@
 # SQL Cheaet sheet
 
-## **SQL**(MySQL or  Oracle SQL)
+## **SQL**(MySQL or Oracle SQL)
 
 ### Find item having at least value
 
@@ -60,6 +60,50 @@ WHERE columnN LIKE pattern;
 |WHERE CustomerName LIKE '_r%'|Finds any values that have "r" in the second position|
 |WHERE CustomerName LIKE 'a__%'|Finds any values that start with "a" and are at least 3 characters in length|
 |WHERE ContactName LIKE 'a%o'|Finds any values that start with "a" and ends with "o"|
+
+### Index
+
+Indexes are **special lookup tables** that the database search engine can use to speed up data retrieval.An index helps to speed up **SELECT** queries and **WHERE** clauses, but it slows down data input, with the **UPDATE** and the **INSERT** statements. Indexes can be created or dropped with no effect on the data. 
+Creating an index involves the **CREATE INDEX** statement, which allows you to name the index, to specify the table and which column or columns to index, and to indicate whether the index is in an ascending or descending order.
+Indexes can also be unique, like the **UNIQUE** constraint, in that the index prevents duplicate entries in the column or combination of columns on which there is an index.
+
+#### CREATE INDEX Syntax
+
+Creates an index on a table. Duplicate values are allowed:
+
+```sql
+CREATE INDEX index_name ON table_name;
+```
+
+```sql
+CREATE INDEX index_name
+ON table_name (column1, column2, ...);
+```
+
+#### CREATE UNIQUE INDEX Syntax
+
+Creates a unique index on a table. Duplicate values are not allowed:
+
+```sql
+CREATE UNIQUE INDEX index_name
+ON table_name (column1, column2, ...);
+```
+
+#### DROP INDEX Statement
+
+The DROP INDEX statement is used to delete an index in a table.
+
+```sql
+--SQL Server
+DROP INDEX table_name.index_name;
+--Oracle
+DROP INDEX index_name;
+--MySQL
+ALTER TABLE table_name
+DROP INDEX index_name;
+```
+
+
 
 ### With Statement
 
