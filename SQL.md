@@ -19,7 +19,6 @@ SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 ### Find date period
 
 ```sql
-
 #MySQL
 WHERE first_login >= DATE_ADD('2019-06-30', INTERVAL -90 DAY)
 #Oracle SQL
