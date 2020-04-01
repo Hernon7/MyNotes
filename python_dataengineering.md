@@ -41,11 +41,19 @@ missingCols = pd.isnull(ncbirths).sum(axis=0) > 0
 df.sum(axis=0)
 ```
 
-**Rows sum(sum all cols):**
+### Rows sum(sum all cols):
 
 ```python
 df.sum(axis=1)
 ```
+### Drop Columns from a dataframe
+
+```python
+df.drop(columns=['col1','col1'],inplace = True)
+```
+
+
+
 ### Make a flat list out of list of lists
 
 ```python
@@ -73,6 +81,45 @@ quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 ```python
 df['col'] = Cos_df['col'].apply(lambda x: float(x.replace('$','') if isinstance(x, str) else False))
 ```
+
+### Convert the percentage in to float in a Dataframe 
+
+```python
+df['col'].str.rstrip('%').astype('float') / 100.0
+```
+
+### Counts
+
+```python
+#Find counts of each unique value in col
+df.value_counts()
+# Find counts
+df.count()
+```
+
+### Melt
+
+**For dataframe like:**
+
+| Items |  2020  |  2019  |  2018  |  2017  |  2016  |
+| :---: | :----: | :----: | :----: | :----: | :----: |
+| Item1 | Value1 | Value2 | Value3 | Value4 | Value5 |
+
+**Transfer to:**
+
+| Items | Year | Values |
+| :---: | :--: | :----: |
+| Item1 | 2020 | Value1 |
+| Item1 | 2019 | Value2 |
+| Item1 | 2018 | Value3 |
+| Item1 | 2017 | Value4 |
+| Item1 | 2016 | Value5 |
+
+```python
+df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
+```
+
+
 
 ### Groupby in a Dataframe
 
