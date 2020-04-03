@@ -6,13 +6,38 @@
 
 #### Missing Values
 
-##### SimpleImputer
+```python
+#Generate dataframe with missing values
+sample_incomplete_rows = df[df.isnull().any(axis=1)].head()
+```
+
+```python
+# 1.Get rid of the corresponding districts
+df.dropna(subset=["total_bedrooms"])
+```
+
+```python
+# 2.Get rid of the whole attribute
+df.drop("col", axis=1) 
+```
+
+```python
+# 3.Set the values to some value(zero,the mean,the median.etc.)
+median = df["col"].median()
+sample_incomplete_rows["col"].fillna(median, inplace=True)
+```
 
 ```python
 # Using SimpleImputer to fill missing values
 from sklearn.impute import SimpleImputer
+# Remove the text attribute because median can only be calculated on numerical attributes:
+df_num = df.drop("text", axis=1)
+
 imputer = SimpleImputer(strategy="median")
-imputer.fit(housing_num)
+imputer.fit(df_num)
+imputer.statistics_
+X = imputer.transform(df_num)
+df_tr = pd.DataFrame(X, columns=df_num.columns,index=df_num.index)
 ```
 
 #### Categorical varible
@@ -38,7 +63,15 @@ from sklearn.preprocessing import OneHotEncoder
 
 cat_encoder = OneHotEncoder()
 housing_cat_1hot = cat_encoder.fit_transform(housing_cat)
+housing_cat_1hot.toarray()
+```
+
+```python
+#Alternatively, you can set sparse=False when creating the OneHotEncoder:
+cat_encoder = OneHotEncoder(sparse=False)
+housing_cat_1hot = cat_encoder.fit_transform(housing_cat)
 housing_cat_1hot
+cat_encoder.categories_
 ```
 
 ##### LabelEncoder
@@ -65,7 +98,6 @@ def LabelEncoder(df):
 from sklearn.preprocessing import MinMaxScaler
 data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
 scaler = MinMaxScaler()
-
 ```
 
 ##### Standardization 

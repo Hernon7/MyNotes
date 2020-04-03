@@ -52,6 +52,12 @@ df.sum(axis=1)
 df.drop(columns=['col1','col1'],inplace = True)
 ```
 
+### Show Info about the dataframe
+
+```python
+df.info()
+df.describe()
+```
 
 
 ### Make a flat list out of list of lists
@@ -97,6 +103,17 @@ df.value_counts()
 df.count()
 ```
 
+### Cut a attribute into bins
+
+```python
+#Cut the column into 5 classes from 0 to 6
+df["col"] = pd.cut(housing["median_income"],
+                               bins=[0., 1.5, 3.0, 4.5, 6., np.inf],
+                               labels=[1, 2, 3, 4, 5])
+```
+
+
+
 ### Melt
 
 **For dataframe like:**
@@ -124,8 +141,6 @@ df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 ### Groupby in a Dataframe
 
 ```python
-#describe() can quick display statistics
-df.describe()
 #Customize the display
 df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
 ```
@@ -199,3 +214,54 @@ The usual way to test for a NaN is to see if it's equal to itself:
 def isNaN(num):
     return num != num
 ```
+
+## Data Visualization
+
+### Save Charts
+
+```python
+def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300):
+    path = os.path.join(IMAGES_PATH, fig_id + "." + fig_extension)
+    print("Saving figure", fig_id)
+    if tight_layout:
+        plt.tight_layout()
+    plt.savefig(path, format=fig_extension, dpi=resolution)
+```
+
+### Historical Charts
+
+```python
+%matplotlib inline
+import matplotlib.pyplot as plt
+df.hist(bins=50, figsize=(20,15))
+# save_fig("attribute_histogram_plots")
+plt.show()
+```
+
+### Scatter Charts
+
+```python
+#1
+df.plot(kind="scatter", x="x", y="y")
+#2
+df.plot(kind="scatter", x="x", y="y", alpha=0.1)
+#3
+housing.plot(kind="scatter", x="x", y="y", alpha=0.4,
+    s=df["z"]/100, label="z", figsize=(10,7),
+    c="c", cmap=plt.get_cmap("jet"), colorbar=True,
+    sharex=False)
+plt.legend()
+```
+
+### Correlation Charts
+
+```python
+corr_matrix = df.corr()
+corr_matrix["col"].sort_values(ascending=False)
+from pandas.plotting import scatter_matrix
+
+attributes = ["median_house_value", "median_income", "total_rooms",
+              "housing_median_age"]
+scatter_matrix(housing[attributes], figsize=(12, 8))
+```
+
