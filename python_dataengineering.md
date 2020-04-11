@@ -31,8 +31,10 @@ s.value_counts(normalize=True)
 ### Generate the boolean flags indicating missing rows and columns
 
 ```python
-missingRows = pd.isnull(ncbirths).sum(axis=1) > 0
-missingCols = pd.isnull(ncbirths).sum(axis=0) > 0
+missingRows = pd.isnull(col).sum(axis=1) > 0
+missingCols = pd.isnull(col).sum(axis=0) > 0
+#find cols with missing values:
+df.columns[df.isnull().sum(axis=0)>0]
 ```
 
 ### Columns sum(sum all rows)
@@ -73,7 +75,7 @@ flatten = lambda l: [item for sublist in l for item in sublist]
 sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 ```
 
->Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.\
+>Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.
 >In Python Dictionary, items() method is used to return the list with all dictionary keys with values.
 
 ### Find columns that contain specific string
@@ -93,6 +95,15 @@ df['col'] = Cos_df['col'].apply(lambda x: float(x.replace('$','') if isinstance(
 ```python
 df['col'].str.rstrip('%').astype('float') / 100.0
 ```
+
+### Convert float to date
+
+```python
+timestamps = df['Time'].map(lambda t: str(int(t)) if not np.isnan(t) else '').map(lambda t:t if len(t)>2 else '')
+df['Time2'] = timestamps.map(lambda t:'0'*(4-len(t))+t).map(lambda t:'%s:%s.000' %(t[:2], t[2:4]))
+```
+
+
 
 ### Counts
 

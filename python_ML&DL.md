@@ -32,12 +32,13 @@ sample_incomplete_rows["col"].fillna(median, inplace=True)
 from sklearn.impute import SimpleImputer
 # Remove the text attribute because median can only be calculated on numerical attributes:
 df_num = df.drop("text", axis=1)
-
-imputer = SimpleImputer(strategy="median")
-imputer.fit(df_num)
-imputer.statistics_
-X = imputer.transform(df_num)
-df_tr = pd.DataFrame(X, columns=df_num.columns,index=df_num.index)
+def fill_missing(df,strategy='median'):
+    imputer = SimpleImputer(strategy = strategy)
+    imputer.fit(df)
+    X = imputer.transform(df)
+    df_tr = pd.DataFrame(X, columns=df.columns,index=df.index)
+    print(imputer.statistics_)
+    return df_tr
 ```
 
 #### Categorical varible
@@ -60,18 +61,19 @@ ordinal_encoder.categories_
 ```python 
 # Using OneHotEncoder to create dummy varables
 from sklearn.preprocessing import OneHotEncoder
-
 cat_encoder = OneHotEncoder()
-housing_cat_1hot = cat_encoder.fit_transform(housing_cat)
-housing_cat_1hot.toarray()
+df_cat_1hot = cat_encoder.fit_transform(df_cat)
+housdf_cat_1hoting_cat_1hot.toarray()
 ```
 
 ```python
 #Alternatively, you can set sparse=False when creating the OneHotEncoder:
+from sklearn.preprocessing import OneHotEncoder
 cat_encoder = OneHotEncoder(sparse=False)
-housing_cat_1hot = cat_encoder.fit_transform(housing_cat)
-housing_cat_1hot
+df_cat_1hot = cat_encoder.fit_transform(df_cat)
+
 cat_encoder.categories_
+cat_tr = pd.DataFrame(df_cat_1hot, columns= cat_encoder.categories_,index=df_cat.index)
 ```
 
 ##### LabelEncoder
@@ -96,13 +98,53 @@ def LabelEncoder(df):
 
 ```python
 from sklearn.preprocessing import MinMaxScaler
-data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
-scaler = MinMaxScaler()
+def normalize(df):
+    scaler = MinMaxScaler()
+    scaler.fit(df)
+    scaler.transform(df)
+    X = scaler.transform(df)
+    df_normalized = pd.DataFrame(X, columns=df.columns,index=df.index)
+    print(scaler.data_max_)
+    return df_normalized
 ```
 
 ##### Standardization 
 
 > It substracts the mean value(so the standardized value always have a zero mean), and then it divids by the standard deviation so that the resulting distribution has unit variance. Unlike Nornalization, standardization does not bound values to a specific range.
+```python
+from sklearn.preprocessing import StandardScaler
+def standardize(df):
+    scaler = StandardScaler()
+    scaler.fit(df)
+    scaler.transform(df)
+    X = scaler.transform(df)
+    df_standardized = pd.DataFrame(X, columns=df.columns,index=df.index)
+    print(scaler.mean_)
+    return df_standardized
+```
+##### Boxcox for feature skewness
+
+```python
+#boxcox()
+"""
+y = (x**lmbda - 1) / lmbda,  for lmbda > 0
+    log(x),                  for lmbda = 0            
+"""
+from scipy import stats
+stats.boxcox(x)
+```
+
+```python
+#boxcox1p
+"""
+y = ((1+x)**lmbda - 1) / lmbda  if lmbda != 0
+    log(1+x)                    if lmbda == 0
+"""
+from scipy.special import boxcox1p
+boxcox1p(x, 0.25)
+```
+
+#### Pipeline
 
 ```python
 from sklearn.pipeline import Pipeline
@@ -113,9 +155,46 @@ num_pipeline = Pipeline([
         ('attribs_adder', CombinedAttributesAdder()),
         ('std_scaler', StandardScaler()),
     ])
+
+housing_num_tr = num_pipeline.fit_transform(housing_num)
 ```
 
+```python
+from sklearn.compose import ColumnTransformer
+
+num_attribs = list(housing_num)
+cat_attribs = ["ocean_proximity"]
+
+full_pipeline = ColumnTransformer([
+        ("num", num_pipeline, num_attribs),
+        ("cat", OneHotEncoder(), cat_attribs),
+    ])
+
+housing_prepared = full_pipeline.fit_transform(housing)
+```
+
+
+
 ### Select and Train a Model
+
+#### Training and Evaluating on the Training Set
+
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+model = LinearRegression()
+model.fit(X, y)
+```
+
+```python
+from sklearn.metrics import mean_squared_error
+predictions = model.predict(housing_prepared)
+mse = mean_squared_error(Y_test, predictions)
+rmse = np.sqrt(mse)
+
+from sklearn.metrics import mean_absolute_error
+mae = mean_absolute_error(Y_test, predictions)
+```
 
 #### Cross-Validation
 
@@ -137,7 +216,7 @@ lin_scores = cross_val_score(lin_reg, housing_prepared, housing_labels,
                              scoring="neg_mean_squared_error", cv=10)
 lin_rmse_scores = np.sqrt(-lin_scores)
 display_scores(lin_rmse_scores)
-
+pd.Series(np.sqrt(-scores)).describe()
 ```
 
 ### Hyperparameter Tunning
@@ -145,9 +224,9 @@ display_scores(lin_rmse_scores)
 #### Grid Search
 
 ```python
+from sklearn.ensemble import RandomForestRegressor
 
 from sklearn.model_selection import GridSearchCV
-
 param_grid = [
     # try 12 (3×4) combinations of hyperparameters
     {'n_estimators': [3, 10, 30], 'max_features': [2, 4, 6, 8]},
@@ -160,18 +239,7 @@ forest_reg = RandomForestRegressor(random_state=42)
 grid_search = GridSearchCV(forest_reg, param_grid, cv=5,
                            scoring='neg_mean_squared_error',
                            return_train_score=True)
-grid_search.fit(housing_prepared, housing_labels)
-
-
-grid_search.best_params_
-
-
-grid_search.best_estimator_
-
-# The score of each hyperparameter combination tested during the grid search:
-cvres = grid_search.cv_results_
-for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
-    print(np.sqrt(-mean_score), params)
+grid_search.fit(X, y)
 ```
 
 #### Randomized Search
@@ -188,18 +256,31 @@ param_distribs = {
 forest_reg = RandomForestRegressor(random_state=42)
 rnd_search = RandomizedSearchCV(forest_reg, param_distributions=param_distribs,
                                 n_iter=10, cv=5, scoring='neg_mean_squared_error', random_state=42)
-rnd_search.fit(housing_prepared, housing_labels)
+rnd_search.fit(X, y)
 
 cvres = rnd_search.cv_results_
 for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
     print(np.sqrt(-mean_score), params)
 ```
 
+#### Example SciPy distributions for RandomizedSearchCV
+
+```python
+from scipy.stats import geom, expon
+geom_distrib=geom(0.5).rvs(10000, random_state=42)
+expon_distrib=expon(scale=1).rvs(10000, random_state=42)
+plt.hist(geom_distrib, bins=50)
+plt.show()
+plt.hist(expon_distrib, bins=50)
+plt.show()
+```
+
 #### Feature Importance
 
 ```python
 feature_importances = grid_search.best_estimator_.feature_importances_
-feature_importances
+attributes = list(X.columns)
+sorted(zip(feature_importances, attributes), reverse=True)
 ```
 
 #### Final Model
@@ -208,19 +289,7 @@ feature_importances
 final_model = grid_search.best_estimator_s
 ```
 
-### RandomForest
 
->[RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)\
->[RandomForestRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
-
-#### Train & Fit
-
-```python
-#import ML packages
-from sklearn.ensemble import RandomForestClassifier
-rnd_clf = RandomForestClassifier(n_estimators= 500, max_leaf_nodes= 16,n_jobs= -1)
-rnd_clf.fit(X_train,Y_train)
-```
 
 ---
 
