@@ -1,8 +1,18 @@
 # Python cheat sheet for Exploratory Data Analysis (**EDA**)
 
-## Useful Quarries
 
-### Import packages
+# Table of contents
+1. [Import packages](#Import packages)
+2. [ Dataframe](# Dataframe)
+    1. [Dataframe Properties](#Dataframe Properties)
+    2. [Missing Values](#Missing Values)
+    3. [Numerical Values](#Numerical Values)
+    4. [Categoerical Values](#Categoerical Values)
+    5. [Time Values](#Time Values)
+3. [Another paragraph](#paragraph2)
+
+
+## Import packages
 
 ```python
 import numpy as np
@@ -15,20 +25,29 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 ```
 
-### Get col and row number for a dataframe
 
+
+## Dataframe
+
+### Dataframe Properties
+
+#### Basic Info
+```python
+df.info()
+df.describe()
+```
+#### Get col and row number for a Dataframe
 ```python
 count_row = df.shape[0]
 count_col = df.shape[1]
 ```
-
-### Get appear number of different value type for categoric data
+#### Get appear number of different value type for categoric data
 
 ```python
 s.value_counts(normalize=True)
 ```
 
-### Generate the boolean flags indicating missing rows and columns
+#### Generate the boolean flags indicating missing rows and columns
 
 ```python
 missingRows = pd.isnull(col).sum(axis=1) > 0
@@ -37,92 +56,7 @@ missingCols = pd.isnull(col).sum(axis=0) > 0
 df.columns[df.isnull().sum(axis=0)>0]
 crimes.columns[crimes.isnull().any()]
 ```
-
-### Columns sum(sum all rows)
-
-```python
-df.sum(axis=0)
-```
-
-### Rows sum(sum all cols):
-
-```python
-df.sum(axis=1)
-```
-### Drop Columns from a dataframe
-
-```python
-df.drop(columns=['col1','col1'],inplace = True)
-```
-
-### Show Info about the dataframe
-
-```python
-df.info()
-df.describe()
-```
-
-
-### Make a flat list out of list of lists
-
-```python
-flat_list = [item for sublist in l for item in sublist]
-flatten = lambda l: [item for sublist in l for item in sublist]
-```
-
-### How to sort a dictionary according to values
-
-```python
-sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
-```
-
->Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.
->In Python Dictionary, items() method is used to return the list with all dictionary keys with values.
-
-### Find columns that contain specific string
-
-```python
-quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
-```
-
-### Remove the <$> in a Dataframe
-
-```python
-df['col'] = Cos_df['col'].apply(lambda x: float(x.replace('$','') if isinstance(x, str) else False))
-```
-
-### Convert the percentage in to float in a Dataframe 
-
-```python
-df['col'].str.rstrip('%').astype('float') / 100.0
-```
-
-### Convert float to date
-
-```python
-timestamps = df['Time'].map(lambda t: str(int(t)) if not np.isnan(t) else '').map(lambda t:t if len(t)>2 else '')
-df['Time2'] = timestamps.map(lambda t:'0'*(4-len(t))+t).map(lambda t:'%s:%s.000' %(t[:2], t[2:4]))
-```
-
-### Counts
-
-```python
-#Find counts of each unique value in col
-df.value_counts()
-# Find counts
-df.count()
-```
-
-### Cut a attribute into bins
-
-```python
-#Cut the column into 5 classes from 0 to 6
-df["col"] = pd.cut(housing["median_income"],
-                               bins=[0., 1.5, 3.0, 4.5, 6., np.inf],
-                               labels=[1, 2, 3, 4, 5])
-```
-
-### Melt
+#### Melt
 
 **For dataframe like:**
 
@@ -144,7 +78,7 @@ df["col"] = pd.cut(housing["median_income"],
 df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 ```
 
-### Groupby in a Dataframe
+#### Groupby in a Dataframe
 
 ```python
 #Customize the display
@@ -173,6 +107,103 @@ df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
 | `cumprod`  |         Cumulative product          |
 | `cummax`   |         Cumulative maximum          |
 | `cummin`   |         Cumulative minimum          |
+#### Counts
+
+```python
+#Find counts of each unique value in col
+df.value_counts()
+# Find counts
+df.count()
+```
+
+#### Drop Columns from a Dataframe
+
+```python
+df.drop(columns=['col1','col1'],inplace = True)
+```
+#### Find columns that contain specific string
+
+```python
+quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
+```
+
+
+
+### Missing Values
+
+
+
+### Numerical Values
+
+#### Remove the <$> in a Dataframe
+
+```python
+df['col'] = Cos_df['col'].apply(lambda x: float(x.replace('$','') if isinstance(x, str) else False))
+```
+#### Convert the percentage in to float in a Dataframe 
+
+```python
+df['col'].str.rstrip('%').astype('float') / 100.0
+```
+
+
+### Categoerical Values
+
+#### Cut a attribute into bins
+
+```python
+#Cut the column into 5 classes from 0 to 6
+df["col"] = pd.cut(housing["median_income"],
+                               bins=[0., 1.5, 3.0, 4.5, 6., np.inf],
+                               labels=[1, 2, 3, 4, 5])
+```
+
+```python
+#use np.clip()
+>>> a = np.arange(10)
+>>> np.clip(a, 1, 8)
+array([1, 1, 2, 3, 4, 5, 6, 7, 8, 8])
+```
+
+
+
+### Time Values
+
+#### Convert float to date
+
+```python
+timestamps = df['Time'].map(lambda t: str(int(t)) if not np.isnan(t) else '').map(lambda t:t if len(t)>2 else '')
+df['Time2'] = timestamps.map(lambda t:'0'*(4-len(t))+t).map(lambda t:'%s:%s.000' %(t[:2], t[2:4]))
+```
+---
+
+
+
+## List Properties
+
+### Make a flat list out of list of lists
+
+```python
+flat_list = [item for sublist in l for item in sublist]
+flatten = lambda l: [item for sublist in l for item in sublist]
+```
+---
+
+
+## Dictionary Properties
+
+### How to sort a dictionary according to values
+
+```python
+sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
+```
+
+>Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.
+>In Python Dictionary, items() method is used to return the list with all dictionary keys with values.
+
+## String Properties
+
+
 
 ---
 
