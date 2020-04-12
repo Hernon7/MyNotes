@@ -4,11 +4,11 @@
 
 1. [Import pakages](#Import packages)
 2. [ Dataframe](#Dataframe)
-    1. [Dataframe Properties](#Dataframe Properties)
+    1. [Dataframe Properties](#"Dataframe Properties")
     2. [Missing Values](#Missing Values)
     3. [Numerical Values](#Numerical Values)
     4. [Categoerical Values](#Categoerical Values)
-    5. [Time Values](#'Time Values')
+    5. [Time Values](#Time Values)
 3. [List](#List Properties)
 
 
@@ -29,7 +29,7 @@ pd.set_option('display.max_rows', None)
 
 ## Dataframe
 
-### Dataframe Properties
+### Dataframe Properties <a name="Dataframe Properties"></a>
 
 #### Basic Info
 ```python
