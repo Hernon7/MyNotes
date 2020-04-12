@@ -8,7 +8,7 @@
     2. [Missing Values](#Missing Values)
     3. [Numerical Values](#Numerical Values)
     4. [Categoerical Values](#Categoerical Values)
-    5. [Time Values](#Time Values)
+    5. [Time Values](#'Time Values')
 3. [List](#List Properties)
 
 
