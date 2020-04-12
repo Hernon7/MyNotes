@@ -5,11 +5,14 @@
 1. [Import pakages](#Import packages)
 2. [ Dataframe](#Dataframe)
     1. [Dataframe Properties](#DataframeProperties)
-    2. [Missing Values](#Missing Values)
-    3. [Numerical Values](#Numerical Values)
-    4. [Categoerical Values](#Categoerical Values)
-    5. [Time Values](#Time Values)
-3. [List](#List Properties)
+    2. [Missing Values](#MissingValues)
+    3. [Numerical Values](#NumericalValues)
+    4. [Categoerical Values](#CategoericalValues)
+    5. [Time Values](#TimeValues)
+3. [List](#ListProperties)
+4. [List](#DictionaryProperties)
+5. [List](#StringProperties)
+6. [Functions](#UsefulFunctions)
 
 
 ## Import packages
@@ -129,11 +132,11 @@ quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 
 
 
-### Missing Values
+### Missing Values <a name="MissingValues"></a>
 
 
 
-### Numerical Values
+### Numerical Values <a name="NumericalValues"></a>
 
 #### Remove the <$> in a Dataframe
 
@@ -147,7 +150,7 @@ df['col'].str.rstrip('%').astype('float') / 100.0
 ```
 
 
-### Categoerical Values
+### Categoerical Values <a name="CategoericalValues"></a>
 
 #### Cut a attribute into bins
 
@@ -167,7 +170,7 @@ array([1, 1, 2, 3, 4, 5, 6, 7, 8, 8])
 
 
 
-### Time Values
+### Time Values <a name="TimelValues"></a>
 
 #### Convert float to date
 
@@ -179,7 +182,7 @@ df['Time2'] = timestamps.map(lambda t:'0'*(4-len(t))+t).map(lambda t:'%s:%s.000'
 
 
 
-## List Properties
+## List Properties <a name="ListProperties"></a>
 
 ### Make a flat list out of list of lists
 
@@ -190,7 +193,7 @@ flatten = lambda l: [item for sublist in l for item in sublist]
 ---
 
 
-## Dictionary Properties
+## Dictionary Properties <a name="DictionaryProperties"></a>
 
 ### How to sort a dictionary according to values
 
@@ -201,7 +204,7 @@ sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 >Dictionary in Python is an unordered collection of data values, used to store data values like a map, which unlike other Data Types that hold only single value as an element, Dictionary holds key : value pair.
 >In Python Dictionary, items() method is used to return the list with all dictionary keys with values.
 
-## String Properties
+## String Properties <a name="StringProperties"></a>
 
 
 
@@ -209,7 +212,7 @@ sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 
 
 
-## Useful Functions
+## Useful Functions <a name="UsefulFunctions"></a>
 
 ### Function showing missing values
 
