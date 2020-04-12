@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-1. [Import pakages](#Import packages)
+1. [Import pakages](#Importpackages)
 2. [ Dataframe](#Dataframe)
     1. [Dataframe Properties](#DataframeProperties)
     2. [Missing Values](#MissingValues)
@@ -17,7 +17,7 @@
 8. [Functions](#UsefulFunctions)
 
 
-## Import packages
+## Import packages <a name="Importpackages"></a>
 
 ```python
 import numpy as np
