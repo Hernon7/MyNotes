@@ -2,7 +2,7 @@
 
 ## Table of contents
 
-1. [Import packages](##Import packages)
+1. [Import pakages](#Import packages)
 2. [ Dataframe](# Dataframe)
     1. [Dataframe Properties](#Dataframe Properties)
     2. [Missing Values](#Missing Values)
