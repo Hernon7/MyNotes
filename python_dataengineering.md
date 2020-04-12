@@ -12,7 +12,7 @@
 3. [List](#ListProperties)
 4. [Dictionary](#DictionaryProperties)
 5. [String](#StringProperties)
-6. [Stats Test](StatsTest)
+6. [Stats Test](#StatsTest)
 7. [Data Visualization](#DataVisualization)
 8. [Functions](#UsefulFunctions)
 
