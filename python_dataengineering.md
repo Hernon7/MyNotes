@@ -104,8 +104,6 @@ timestamps = df['Time'].map(lambda t: str(int(t)) if not np.isnan(t) else '').ma
 df['Time2'] = timestamps.map(lambda t:'0'*(4-len(t))+t).map(lambda t:'%s:%s.000' %(t[:2], t[2:4]))
 ```
 
-
-
 ### Counts
 
 ```python
@@ -123,8 +121,6 @@ df["col"] = pd.cut(housing["median_income"],
                                bins=[0., 1.5, 3.0, 4.5, 6., np.inf],
                                labels=[1, 2, 3, 4, 5])
 ```
-
-
 
 ### Melt
 
@@ -147,8 +143,6 @@ df["col"] = pd.cut(housing["median_income"],
 ```python
 df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 ```
-
-
 
 ### Groupby in a Dataframe
 
@@ -181,6 +175,8 @@ df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
 | `cummin`   |         Cumulative minimum          |
 
 ---
+
+
 
 ## Useful Functions
 
