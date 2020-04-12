@@ -10,9 +10,11 @@
     4. [Categoerical Values](#CategoericalValues)
     5. [Time Values](#TimeValues)
 3. [List](#ListProperties)
-4. [List](#DictionaryProperties)
-5. [List](#StringProperties)
-6. [Functions](#UsefulFunctions)
+4. [Dictionary](#DictionaryProperties)
+5. [String](#StringProperties)
+6. [Stats Test](StatsTest)
+7. [Data Visualization](#DataVisualization)
+8. [Functions](#UsefulFunctions)
 
 
 ## Import packages
@@ -50,14 +52,6 @@ count_col = df.shape[1]
 s.value_counts(normalize=True)
 ```
 
-#### Generate the boolean flags indicating missing rows and columns
-
-```python
-missingRows = pd.isnull(col).sum(axis=1) > 0
-missingCols = pd.isnull(col).sum(axis=0) > 0
-#find cols with missing values:
-df.columns[df.isnull().sum(axis=0)>0]
-crimes.columns[crimes.isnull().any()]
 ```
 #### Melt
 
@@ -77,7 +71,7 @@ crimes.columns[crimes.isnull().any()]
 | Item1 | 2017 | Value4 |
 | Item1 | 2016 | Value5 |
 
-```python
+​```python
 df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 ```
 
@@ -85,7 +79,9 @@ df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 
 ```python
 #Customize the display
-df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
+groupby_A = df.groupby('A')
+X = groupby_A.agg({'B': ['min', 'max'], 'C': 'sum'})
+X.reset_index().pivot(index='A', columns='C', values='sum')
 ```
 
 | Function   |             Description             |
@@ -119,6 +115,20 @@ df.value_counts()
 df.count()
 ```
 
+#### Sorted Value:
+
+```python
+df.sort_values(ascending=False).head(n)
+```
+
+#### Distinct value
+
+```python
+print('There are %d distinct value' %(df['col'].unique().shape))
+```
+
+
+
 #### Drop Columns from a Dataframe
 
 ```python
@@ -134,7 +144,15 @@ quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 
 ### Missing Values <a name="MissingValues"></a>
 
+#### Generate the boolean flags indicating missing rows and columns
 
+```python
+missingRows = pd.isnull(col).sum(axis=1) > 0
+missingCols = pd.isnull(col).sum(axis=0) > 0
+#find cols with missing values:
+df.columns[df.isnull().sum(axis=0)>0]
+crimes.columns[crimes.isnull().any()]
+```
 
 ### Numerical Values <a name="NumericalValues"></a>
 
@@ -170,7 +188,7 @@ array([1, 1, 2, 3, 4, 5, 6, 7, 8, 8])
 
 
 
-### Time Values <a name="TimelValues"></a>
+### Time Values <a name="TimeValues"></a>
 
 #### Convert float to date
 
@@ -178,6 +196,37 @@ array([1, 1, 2, 3, 4, 5, 6, 7, 8, 8])
 timestamps = df['Time'].map(lambda t: str(int(t)) if not np.isnan(t) else '').map(lambda t:t if len(t)>2 else '')
 df['Time2'] = timestamps.map(lambda t:'0'*(4-len(t))+t).map(lambda t:'%s:%s.000' %(t[:2], t[2:4]))
 ```
+```python
+def FuseDateTime(date, time):
+    if type(date) == float or time == '': return np.nan
+    return date + ' ' + time
+df['Date Time'] = pd.to_datetime(list(map(FuseDateTime, crimes['Date'].values,  crimes['Time2'].values)))
+```
+
+#### Convert date to Year
+
+```python
+df['Year'] = df['Date Time'].map(lambda t: int(t.year) if t is not pd.NaT else None)
+```
+
+#### Convert date to Quarter
+
+```python
+df['Year_Quarter'] = df['Occurred Date Time'].map(lambda t: "%04dQ%d" %(t.year, (t.month-1)//3+1) if not np.isnan(t.year) else None)
+```
+
+#### Convert Quarter to Season
+
+```python
+quarterly_counts = df[(years>=2008)&(years<=2018)].groupby('Year_Quarter')['Report Number'].count()
+quarters = quarterly_counts.index.str.replace('^\d{4}','')
+ans = pd.DataFrame({'quarters':quarters, 'count':quarterly_counts.values}).groupby('quarters').mean()
+ans.index = ['winter','spring','summer','autumn']
+ans
+```
+
+
+
 ---
 
 
@@ -191,6 +240,7 @@ flat_list = [item for sublist in l for item in sublist]
 flatten = lambda l: [item for sublist in l for item in sublist]
 ```
 ---
+
 
 
 ## Dictionary Properties <a name="DictionaryProperties"></a>
@@ -209,55 +259,17 @@ sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 
 
 ---
-
-
-
-## Useful Functions <a name="UsefulFunctions"></a>
-
-### Function showing missing values
-
+## Stats Test <a name="StatsTest"></a>
+>Notice that we compare the winter vs summer quarters only. The p-value is slightly below the  5%  threshold.
+>Based on  5%  condidence, we can reject the null hypothesis and accept the alternative.
+ANOVA
+We may speculate that the weather has played an essential role here.
+If we test all four quarters together, the p-value would be in-significant. This indicates that the additional spring, autumn quarters make the water muddy.
 ```python
-def assess_NA(data):
-    """
-    Returns a pandas dataframe denoting the total number of NA values and the percentage of NA values in each column.
-    The column names are noted on the index.
-    Parameters
-    ----------
-    data: dataframe
-    """
-    # pandas series denoting features and the sum of their null values
-    null_sum = data.isnull().sum()# instantiate columns for missing data
-    total = null_sum.sort_values(ascending=False)
-    percent = ( ((null_sum / len(data.index))*100).round(2) ).sort_values(ascending=False)
-    # concatenate along the columns to create the complete dataframe
-    df_NA = pd.concat([total, percent], axis=1, keys=['Number of NA', 'Percent NA'])
-    # drop rows that don't have any missing data; omit if you want to keep all rows
-    df_NA = df_NA[ (df_NA.T != 0).any() ]
-
-    return df_NA
+from scipy.stats import f_oneway
 ```
-
-### Function for unique values
-
-```python
-def assess_unique(data):
-    df = data.value_counts().to_frame()
-    count_row = df.shape[0]
-    df = df.set_axis(['Counts'], axis=1, inplace=False)
-    df['Percentage'] = df['Counts']/count_row
-    return df
-```
-
-### Check NaN of a value
-
-The usual way to test for a NaN is to see if it's equal to itself:
-
-```python
-def isNaN(num):
-    return num != num
-```
-
-## Data Visualization
+---
+## Data Visualization <a name="DataVisualization"></a>
 
 ### Save Charts
 
@@ -306,4 +318,48 @@ attributes = ["median_house_value", "median_income", "total_rooms",
               "housing_median_age"]
 scatter_matrix(housing[attributes], figsize=(12, 8))
 ```
+---
+## Useful Functions <a name="UsefulFunctions"></a>
 
+### Function showing missing values
+
+```python
+def assess_NA(data):
+    """
+    Returns a pandas dataframe denoting the total number of NA values and the percentage of NA values in each column.
+    The column names are noted on the index.
+    Parameters
+    ----------
+    data: dataframe
+    """
+    # pandas series denoting features and the sum of their null values
+    null_sum = data.isnull().sum()# instantiate columns for missing data
+    total = null_sum.sort_values(ascending=False)
+    percent = ( ((null_sum / len(data.index))*100).round(2) ).sort_values(ascending=False)
+    # concatenate along the columns to create the complete dataframe
+    df_NA = pd.concat([total, percent], axis=1, keys=['Number of NA', 'Percent NA'])
+    # drop rows that don't have any missing data; omit if you want to keep all rows
+    df_NA = df_NA[ (df_NA.T != 0).any() ]
+
+    return df_NA
+```
+
+### Function for unique values
+
+```python
+def assess_unique(data):
+    df = data.value_counts().to_frame()
+    count_row = df.shape[0]
+    df = df.set_axis(['Counts'], axis=1, inplace=False)
+    df['Percentage'] = df['Counts']/count_row
+    return df
+```
+
+### Check NaN of a value
+
+The usual way to test for a NaN is to see if it's equal to itself:
+
+```python
+def isNaN(num):
+    return num != num
+```
