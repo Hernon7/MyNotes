@@ -260,14 +260,16 @@ sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 
 ---
 ## Stats Test <a name="StatsTest"></a>
->Notice that we compare the winter vs summer quarters only. The p-value is slightly below the  5%  threshold.
->Based on  5%  condidence, we can reject the null hypothesis and accept the alternative.
-ANOVA
-We may speculate that the weather has played an essential role here.
-If we test all four quarters together, the p-value would be in-significant. This indicates that the additional spring, autumn quarters make the water muddy.
+>- The p-value is slightly below the  5%  threshold.
+>- Based on  5%  condidence, we can reject the null hypothesis and accept the alternative.
+  ANOVA
+- We may speculate that the X has played an essential role here.
+- If we test all features together, the p-value would be in-significant. This indicates that the additional features make the water muddy.
 ```python
 from scipy.stats import f_oneway
 ```
+
+
 ---
 ## Data Visualization <a name="DataVisualization"></a>
 
