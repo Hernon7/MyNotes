@@ -35,6 +35,7 @@ missingRows = pd.isnull(col).sum(axis=1) > 0
 missingCols = pd.isnull(col).sum(axis=0) > 0
 #find cols with missing values:
 df.columns[df.isnull().sum(axis=0)>0]
+crimes.columns[crimes.isnull().any()]
 ```
 
 ### Columns sum(sum all rows)
