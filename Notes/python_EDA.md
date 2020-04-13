@@ -52,7 +52,7 @@ count_col = df.shape[1]
 s.value_counts(normalize=True)
 ```
 
-```
+
 #### Melt
 
 **For dataframe like:**
@@ -71,7 +71,7 @@ s.value_counts(normalize=True)
 | Item1 | 2017 | Value4 |
 | Item1 | 2016 | Value5 |
 
-​```python
+```python
 df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 ```
 
