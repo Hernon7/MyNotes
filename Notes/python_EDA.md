@@ -190,6 +190,15 @@ array([1, 1, 2, 3, 4, 5, 6, 7, 8, 8])
 
 ### Time Values <a name="TimeValues"></a>
 
+#### Time difference in days
+
+```python
+from datetime import timedelta, date
+start_date = date(2016, 1, 27)
+current_date = date(2020, 4, 14)
+(current_date - start_date).days
+```
+
 #### Convert float to date
 
 ```python
