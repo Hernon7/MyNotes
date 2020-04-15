@@ -43,6 +43,13 @@ order by avg_rating desc, Movies.title asc
 where rownum = 1
 ```
 
+### Use concat to generate text
+
+```sql
+SELECT "There are a total of", COUNT(OCCUPATION), concat(LOWER(OCCUPATION),"s.") 
+FROM OCCUPATIONS GROUP BY OCCUPATION ORDER BY COUNT(OCCUPATION) ASC, OCCUPATION ASC;
+```
+
 ### Find item looks like some value
 
 ```sql
@@ -59,7 +66,26 @@ WHERE columnN LIKE pattern;
 |WHERE CustomerName LIKE '_r%'|Finds any values that have "r" in the second position|
 |WHERE CustomerName LIKE 'a__%'|Finds any values that start with "a" and are at least 3 characters in length|
 |WHERE ContactName LIKE 'a%o'|Finds any values that start with "a" and ends with "o"|
+### With Statement
 
+```sql
+with CTE as
+(select S.product_id, P.product_name, S.buyer_id from Sales S left join Product P on S.product_id = P.product_id)
+
+select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
+```
+
+### Group by and show count with zero value
+
+```sql
+SELECT posts.sub_id AS post_id,
+       nvl(count(DISTINCT comments.sub_id), 0) AS number_of_comments
+FROM Submissions posts
+LEFT JOIN Submissions comments ON posts.sub_id = comments.parent_id
+WHERE posts.parent_id IS NULL
+GROUP BY posts.sub_id
+ORDER BY posts.sub_id;
+```
 ### Index
 
 Indexes are **special lookup tables** that the database search engine can use to speed up data retrieval.An index helps to speed up **SELECT** queries and **WHERE** clauses, but it slows down data input, with the **UPDATE** and the **INSERT** statements. Indexes can be created or dropped with no effect on the data. 
@@ -87,7 +113,6 @@ Creates a unique index on a table. Duplicate values are not allowed:
 CREATE UNIQUE INDEX index_name
 ON table_name (column1, column2, ...);
 ```
-
 #### DROP INDEX Statement
 
 The DROP INDEX statement is used to delete an index in a table.
@@ -102,30 +127,11 @@ ALTER TABLE table_name
 DROP INDEX index_name;
 ```
 
+---
 
 
-### With Statement
 
-```sql
-with CTE as
-(select S.product_id, P.product_name, S.buyer_id from Sales S left join Product P on S.product_id = P.product_id)
-
-select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
-```
-
-### Group by and show count with zero value
-
-```sql
-SELECT posts.sub_id AS post_id,
-       nvl(count(DISTINCT comments.sub_id), 0) AS number_of_comments
-FROM Submissions posts
-LEFT JOIN Submissions comments ON posts.sub_id = comments.parent_id
-WHERE posts.parent_id IS NULL
-GROUP BY posts.sub_id
-ORDER BY posts.sub_id;
-```
-
-## **PL/SQL**
+## PL/SQL**
 
 ### Output in Oracle/SQL
 
@@ -242,10 +248,6 @@ begin
     :new.population_pk := v_population_pk;
     end if;
 end;
-
-
-
 ```
 ---
 
-### [Markdown Demo](https://markdown-it.github.io/)
