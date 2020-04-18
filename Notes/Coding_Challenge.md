@@ -194,9 +194,9 @@ index->	 1 2 3  4  5 6 7 8 9 10
         [3,3,3,10,10,8,8,8,1, 0]
 ```
 
-The largers value is **10** after all operations are performed.
+The larger value is **10** after all operations are performed.
 
-The soluation is like building a array the record the value change after this point:
+The solution is like building a array the record the value change after this point:
 
 ```
 input:
@@ -245,5 +245,39 @@ def arrayManipulation(n, queries):
         running_count += i
         if running_count > max_value:
             max_value = running_count
+```
+
+## Sherlock and Anagrams
+
+Two strings are [*anagrams*](http://en.wikipedia.org/wiki/Anagram) of each other if the letters of one string can be rearranged to form the other string. Given a string, find the number of pairs of substrings of the string that are anagrams of each other.
+
+For example ***s = mom***, the list of all anagrammatic pairs is***[m, m],[mo, om]*** at positions***[[0],[2]],***
+
+***[[0,1],[1,2] ]***respectively.
+
+```python
+def sherlockAndAnagrams(s):
+    dict={}
+
+    count=0
+
+    for i in range(len(s)):
+
+        for j in range(i+1,len(s)+1):
+
+            list1= list(s[i:j].strip())
+
+            list1.sort()
+
+            transf=''.join(list1)
+
+            if transf in dict: 
+
+                count+=dict[transf]
+
+                dict[transf]=dict[transf]+1
+
+            else: dict[transf]=1  
+    return count   
 ```
 
