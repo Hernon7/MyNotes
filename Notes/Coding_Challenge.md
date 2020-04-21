@@ -1,5 +1,57 @@
 # Coding Challenge via Python
 
+## Customize Functions
+
+### Sorting
+
+#### -Use [bisect](https://docs.python.org/3/library/bisect.html) helps sorting array
+
+**Keep adding value into a sorted array**
+
+```python
+# input a sorted array
+def insort(arr,x):
+    # Insort = insort_right, place item into sorted position  ---> much faster than sorting array yourself
+    bisect.insort_right(arr,x)
+    return arr
+```
+
+**Update value in a sorted array which has fixed lenght**
+
+```python
+import bisect
+def pop_then_insort(arr, x, y):
+    # Use bisect_left because item already exists in list, otherwise _right returns index+1
+    idx = bisect.bisect_left(arr, x)
+    # Remove existing item, pop should be faster than remove here
+    arr.pop(idx)
+    # Insort = insort_right, place item into sorted position  ---> much faster than sorting array yourself
+    bisect.insort_right(rra, y)
+    return arr
+```
+
+#### -Median
+
+```python
+# input a sorted array
+def manual_median(arr):
+    # Using built-in medians would sort the array themselves, that's too slow for us
+    #arr.sort()
+    num_items = len(arr)
+    if num_items % 2 == 0:
+        median = (arr[num_items//2] + arr[(num_items//2)-1])/2
+    else:
+        # You don't need to do -1 but I left it as a lesson
+        median = arr[(num_items-1)//2]
+    return median, arr
+```
+
+
+
+
+
+---
+
 ## Factor of 3 and 5
 
 Creat a filter which could return a list of numbers which has and only has two factors: 3 and 5. Like the following example: <img src="https://latex.codecogs.com/svg.latex?\Large&space;Number=3^x\times5^y" title="\Large Number = 3^x \times 5^y"/> Is what we are looking for.
