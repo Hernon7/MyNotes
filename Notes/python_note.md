@@ -2,7 +2,7 @@
 
 ## Functions
 
-### -divmod() in Python and its application
+:star: **divmod() in Python and its application**
 
 The `divmod()`  method in python takes two numbers and returns a pair of numbers consisting of their quotient and remainder.
 
