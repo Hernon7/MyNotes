@@ -1,5 +1,29 @@
 # Python Programming Notebook
 
+## Functions
+
+### -divmod() in Python and its application
+
+The `divmod()`  method in python takes two numbers and returns a pair of numbers consisting of their quotient and remainder.
+
+```
+divmod(x, y)
+x and y : x is numerator and y is denominator
+x and y must be non complex
+```
+
+```python
+Input : x = 9, y = 3
+Output :(3, 0)
+
+Input : x = 8, y = 3
+Output :(2, 2)
+```
+
+### Mathematical functions
+
+:star:`math.ceil(x)`:Return the ceiling of *x* as a float, the smallest integer value greater than or equal to *x*.
+
 ## Decorator
 
 ### *@classmethod*
