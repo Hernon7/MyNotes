@@ -10,6 +10,7 @@
 
 ```python
 # input a sorted array
+import bisect
 def insort(arr,x):
     # Insort = insort_right, place item into sorted position  ---> much faster than sorting array yourself
     bisect.insort_right(arr,x)
