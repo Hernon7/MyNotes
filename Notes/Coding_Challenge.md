@@ -114,7 +114,71 @@ class Solution:
         return ''.join(nums).lstrip('0') or '0'
 ```
 
+## [Datatype](https://www.geeksforgeeks.org/defaultdict-in-python/)
 
+* **Using List as default_factory**
+
+  ```python
+  # Python program to demonstrate 
+  # defaultdict 
+  
+  
+  from collections import defaultdict 
+  
+  
+  # Defining a dict 
+  d = defaultdict(list) 
+  
+  for i in range(5): 
+  	d[i].append(i) 
+  	
+  print("Dictionary with values as list:") 
+  print(d) 
+  ```
+
+  ```
+  Dictionary with values as list:
+  defaultdict(<class 'list'>, {0: [0], 1: [1], 2: [2], 3: [3], 4: [4]})
+  ```
+
+* **Using int as default_factory**
+
+  ```python
+  # Python program to demonstrate 
+  # defaultdict 
+  
+  
+  from collections import defaultdict 
+  
+  
+  # Defining the dict 
+  d = defaultdict(int) 
+  
+  L = [1, 2, 3, 4, 2, 4, 1, 2] 
+  
+  # Iterate through the list 
+  # for keeping the count 
+  for i in L: 
+  	
+  	# The default value is 0 
+  	# so there is no need to 
+  	# enter the key first 
+  	d[i] += 1
+  	
+  print(d) 
+  ```
+
+  ```
+  defaultdict(<class 'int'>, {1: 2, 2: 3, 3: 1, 4: 2})
+  ```
+
+## Intersection of Two Arrays
+
+```python
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return list(set(nums1) & set(nums2))
+```
 
 ## Longest Common Substring
 
