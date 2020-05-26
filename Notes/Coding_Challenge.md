@@ -168,22 +168,22 @@ class Solution:
   	
   print(d) 
   mapping.values()
-```
-  
   ```
+### Compare float with None: `float('inf')`
+
   defaultdict(<class 'int'>, {1: 2, 2: 3, 3: 1, 4: 2})
   ```
 
 ## Store string with Hashing map
 
-```python
+​```python
 def hashLetter(str):
     record = [0]*26
     for char in str:
         record[ord(char)-ord('a')]+=1
     return tuple(record)
 
-```
+  ```
 
 
 
