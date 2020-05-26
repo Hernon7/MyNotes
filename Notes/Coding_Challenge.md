@@ -134,6 +134,7 @@ class Solution:
   	
   print("Dictionary with values as list:") 
   print(d) 
+  mapping.values()
   ```
 
   ```
@@ -166,11 +167,25 @@ class Solution:
   	d[i] += 1
   	
   print(d) 
-  ```
-
+  mapping.values()
+```
+  
   ```
   defaultdict(<class 'int'>, {1: 2, 2: 3, 3: 1, 4: 2})
   ```
+
+## Store string with Hashing map
+
+```python
+def hashLetter(str):
+    record = [0]*26
+    for char in str:
+        record[ord(char)-ord('a')]+=1
+    return tuple(record)
+
+```
+
+
 
 ## Intersection of Two Arrays
 
