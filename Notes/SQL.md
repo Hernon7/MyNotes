@@ -1,6 +1,55 @@
 # SQL Cheaet sheet
 
+
+
 ## **SQL**(MySQL or Oracle SQL)
+
+
+
+### Rank Functions
+
+* `ROW_NUMBER()`: for same score, assgin different ranks
+
+  ```sql
+  SELECT Studentname, 
+         Subject, 
+         Marks, 
+         ROW_NUMBER() OVER(ORDER BY Marks) RowNumber
+  FROM ExamResult;
+  ```
+
+  ![](https://www.sqlshack.com/wp-content/uploads/2019/07/row_number-sql-rank-function.png)
+
+* `RANK()`:
+
+  ```sql
+  SELECT Studentname, 
+         Subject, 
+         Marks, 
+         RANK() OVER(PARTITION BY Studentname ORDER BY Marks DESC) Rank
+  FROM ExamResult
+  ORDER BY Studentname, 
+           Rank;
+  ```
+
+  
+
+  ![](https://www.sqlshack.com/wp-content/uploads/2019/07/ranksql-rank-function.png)
+
+* `DENSE_RANK()`: if we have duplicate values, SQL assigns different ranks to those rows as well. Ideally, we should get the same rank for duplicate or similar values.
+
+  ```sql
+  SELECT Studentname, 
+         Subject, 
+         Marks, 
+         DENSE_RANK() OVER(ORDER BY Marks DESC) Rank
+  FROM ExamResult
+  ORDER BY Rank;
+  ```
+
+  
+
+  ![](https://www.sqlshack.com/wp-content/uploads/2019/07/dense_ranksql-rank-function.png)
 
 ### Find item having at least value
 
@@ -131,7 +180,7 @@ DROP INDEX index_name;
 
 
 
-## PL/SQL**
+## PL/SQL
 
 ### Output in Oracle/SQL
 
