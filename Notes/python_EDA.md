@@ -52,6 +52,116 @@ count_col = df.shape[1]
 s.value_counts(normalize=True)
 ```
 
+#### Selecting
+
+```python
+anime['genre'].tolist()
+anime['genre']
+```
+
+#### Get a list of index values
+
+```python
+anime_modified.index.tolist()
+```
+
+#### Get a list of column values
+
+```python
+anime.columns.tolist()
+```
+
+#### Append new column with a set value
+
+```python
+anime['train set'] = True
+```
+
+#### Create new data frame from a subset of columns
+
+```python
+anime[['name','episodes']]
+```
+
+#### Drop specified columns
+
+```python
+df.drop(columns=['col1','col1'],inplace = True)
+anime.drop(['anime_id', 'genre', 'members'], axis=1).head()
+```
+#### Add a row with sum of other rows
+
+We’ll manually create a small data frame here because it’s easier to look at. The interesting part here is `df.sum(axis=0)` which adds the values across rows. Alternatively `df.sum(axis=1)` adds values across columns.
+
+The same logic applies when calculating counts or means, ie: `df.mean(axis=0)`.
+
+```python
+df = pd.DataFrame([[1,'Bob', 8000],
+                  [2,'Sally', 9000],
+                  [3,'Scott', 20]], columns=['id','name', 'power level'])df.append(df.sum(axis=0), ignore_index=True)
+```
+
+#### Concatenate 2 dataframes
+
+```python
+df1 = anime[0:2]
+df2 = anime[2:4]
+pd.concat([df1, df2], ignore_index=True)
+```
+
+#### Merge dataframes
+
+This functions like a SQL left join, when you have 2 data frames and want to join on a column.
+
+```python
+rating.merge(anime, left_on=’anime_id’, right_on=’anime_id’, suffixes=(‘_left’, ‘_right’))
+```
+
+#### Retrieve rows with matching index values
+
+```python
+anime_modified.loc[['Haikyuu!! Second Season','Gintama']]
+```
+
+#### Retrieve rows by numbered index values
+
+```python
+anime_modified.iloc[0:3]
+```
+
+#### Get rows
+
+Retrieve rows where a column’s value is in a given list. `anime[anime[‘type’] == 'TV']` also works when matching on a single value.
+
+```python
+anime[anime['type'].isin(['TV', 'Movie'])]
+```
+
+#### Slice a dataframe
+
+```python
+anime[1:3]
+```
+
+#### Filter by value
+
+```python
+anime[anime['rating'] > 8]	
+```
+#### Filter columns that contain specific string
+
+```python
+quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
+```
+#### sort_values
+
+Sort data frame by values in a column.
+
+```
+anime.sort_values('rating', ascending=False)
+```
+
+#### Melt
 
 #### Melt
 
@@ -115,10 +225,15 @@ df.value_counts()
 df.count()
 ```
 
-#### Sorted Value:
+#### Create a pivot table
 
 ```python
-df.sort_values(ascending=False).head(n)
+tmp_df = rating.copy()
+tmp_df.sort_values('user_id', ascending=True, inplace=True)
+tmp_df = tmp_df[tmp_df.user_id < 10] 
+tmp_df = tmp_df[tmp_df.anime_id < 30]
+tmp_df = tmp_df[tmp_df.rating != -1]
+pd.pivot_table(tmp_df, values='rating', index=['user_id'], columns=['anime_id'], aggfunc=np.sum, fill_value=0)
 ```
 
 #### Distinct value
@@ -128,16 +243,12 @@ print('There are %d distinct value' %(df['col'].unique().shape))
 ```
 
 
-
-#### Drop Columns from a Dataframe
-
-```python
-df.drop(columns=['col1','col1'],inplace = True)
 ```
-#### Find columns that contain specific string
+
+#### Sample data
 
 ```python
-quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
+anime.sample(frac=0.25)
 ```
 
 
@@ -154,6 +265,8 @@ df.columns[df.isnull().sum(axis=0)>0]
 crimes.columns[crimes.isnull().any()]
 ```
 
+
+
 ### Numerical Values <a name="NumericalValues"></a>
 
 #### Remove the <$> in a Dataframe
@@ -166,6 +279,7 @@ df['col'] = Cos_df['col'].apply(lambda x: float(x.replace('$','') if isinstance(
 ```python
 df['col'].str.rstrip('%').astype('float') / 100.0
 ```
+
 
 
 ### Categoerical Values <a name="CategoericalValues"></a>
