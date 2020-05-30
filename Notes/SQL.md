@@ -101,11 +101,69 @@ group by item
 having count(*) >= num;
 ```
 
+### Calculate moving average with `datediff`
+
+```cmd
+Customer table:
++-------------+--------------+--------------+-------------+
+| customer_id | name         | visited_on   | amount      |
++-------------+--------------+--------------+-------------+
+| 1           | Jhon         | 2019-01-01   | 100         |
+| 2           | Daniel       | 2019-01-02   | 110         |
+| 3           | Jade         | 2019-01-03   | 120         |
+| 4           | Khaled       | 2019-01-04   | 130         |
+| 5           | Winston      | 2019-01-05   | 110         | 
+| 6           | Elvis        | 2019-01-06   | 140         | 
+| 7           | Anna         | 2019-01-07   | 150         |
+| 8           | Maria        | 2019-01-08   | 80          |
+| 9           | Jaze         | 2019-01-09   | 110         | 
+| 1           | Jhon         | 2019-01-10   | 130         | 
+| 3           | Jade         | 2019-01-10   | 150         | 
++-------------+--------------+--------------+-------------+
+
+Result table:
++--------------+--------------+----------------+
+| visited_on   | amount       | average_amount |
++--------------+--------------+----------------+
+| 2019-01-07   | 860          | 122.86         |
+| 2019-01-08   | 840          | 120            |
+| 2019-01-09   | 840          | 120            |
+| 2019-01-10   | 1000         | 142.86         |
++--------------+--------------+----------------+
+```
+
+
+
+```sql
+select
+    a.visited_on,
+    sum(b.tot) as amount,
+    round(avg(b.tot),2) as average_amount
+from
+    (select distinct visited_on from Customer) a
+    left join
+    (select visited_on, sum(amount) as tot
+    from Customer
+    group by visited_on) b
+on
+    datediff(a.visited_on, b.visited_on) <= 6
+    and
+    a.visited_on >= b.visited_on
+group by
+    a.visited_on
+having
+    count(a.visited_on) = 7
+```
+
+
+
 ### Convert date time
 
 ```sql
 SELECT TO_DATE('2012-06-05', 'YYYY-MM-DD') FROM dual;
 ```
+
+
 
 ### Find date period
 
@@ -115,6 +173,8 @@ WHERE first_login >= DATE_ADD('2019-06-30', INTERVAL -90 DAY)
 #Oracle SQL
 where first_date >= (to_date( '2019-06-30','YYYY-MM-DD')-90) 
 ```
+
+
 
 ### Find record in certain month
 
@@ -134,12 +194,16 @@ order by avg_rating desc, Movies.title asc
 where rownum = 1
 ```
 
+
+
 ### Use concat to generate text
 
 ```sql
 SELECT "There are a total of", COUNT(OCCUPATION), concat(LOWER(OCCUPATION),"s.") 
 FROM OCCUPATIONS GROUP BY OCCUPATION ORDER BY COUNT(OCCUPATION) ASC, OCCUPATION ASC;
 ```
+
+
 
 ### Find item looks like some value
 
@@ -157,6 +221,8 @@ WHERE columnN LIKE pattern;
 |WHERE CustomerName LIKE '_r%'|Finds any values that have "r" in the second position|
 |WHERE CustomerName LIKE 'a__%'|Finds any values that start with "a" and are at least 3 characters in length|
 |WHERE ContactName LIKE 'a%o'|Finds any values that start with "a" and ends with "o"|
+
+
 ### With Statement
 
 ```sql
@@ -165,6 +231,8 @@ with CTE as
 
 select distinct buyer_id from CTE where buyer_id not in (select buyer_id from CTE where product_name = 'iPhone') and product_name = 'S8'
 ```
+
+
 
 ### Group by and show count with zero value
 
@@ -177,6 +245,8 @@ WHERE posts.parent_id IS NULL
 GROUP BY posts.sub_id
 ORDER BY posts.sub_id;
 ```
+
+
 ### Index
 
 Indexes are **special lookup tables** that the database search engine can use to speed up data retrieval.An index helps to speed up **SELECT** queries and **WHERE** clauses, but it slows down data input, with the **UPDATE** and the **INSERT** statements. Indexes can be created or dropped with no effect on the data. 
