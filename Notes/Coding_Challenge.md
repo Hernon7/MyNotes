@@ -1,5 +1,7 @@
 # Coding Challenge via Python
 
+
+
 ## Customize Functions
 
 ### Sorting
@@ -114,7 +116,9 @@ class Solution:
         return ''.join(nums).lstrip('0') or '0'
 ```
 
-## [Datatype](https://www.geeksforgeeks.org/defaultdict-in-python/)
+
+
+## [defaultdict](https://www.geeksforgeeks.org/defaultdict-in-python/)
 
 * **Using List as default_factory**
 
@@ -169,6 +173,34 @@ class Solution:
   print(d) 
   mapping.values()
   ```
+
+
+
+### [OrderedDict](https://www.geeksforgeeks.org/ordereddict-in-python/)
+
+* **Key value Change:** If the value of a certain key is changed, the position of the key remains unchanged in OrderedDict.
+* **Deletion and Re-Inserting**: Deleting and re-inserting the same key will push it to the back as OrderedDict however maintains the order of insertion.
+
+- `popitem`(*last=True*)
+
+  The [`popitem()`](https://docs.python.org/3/library/collections.html#collections.OrderedDict.popitem) method for ordered dictionaries returns and removes a (key, value) pair. The pairs are returned in LIFO order if *last* is true or FIFO order if false.
+
+- `move_to_end`(*key*, *last=True*)
+
+  Move an existing *key* to either end of an ordered dictionary. The item is moved to the right end if *last* is true (the default) or to the beginning if *last* is false. Raises [`KeyError`](https://docs.python.org/3/library/exceptions.html#KeyError) if the *key* does not exist:
+
+  ```python
+  >>> d = OrderedDict.fromkeys('abcde')
+  >>> d.move_to_end('b')
+  >>> ''.join(d.keys())
+  'acdeb'
+  >>> d.move_to_end('b', last=False)
+  >>> ''.join(d.keys())
+  'bacde'
+  ```
+
+  
+
 ### Compare float with None: `float('inf')`
 
   defaultdict(<class 'int'>, {1: 2, 2: 3, 3: 1, 4: 2})
@@ -194,6 +226,8 @@ class Solution:
     def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
         return list(set(nums1) & set(nums2))
 ```
+
+
 
 ## Longest Common Substring
 
