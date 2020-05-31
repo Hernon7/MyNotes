@@ -190,6 +190,7 @@ class Solution:
   Move an existing *key* to either end of an ordered dictionary. The item is moved to the right end if *last* is true (the default) or to the beginning if *last* is false. Raises [`KeyError`](https://docs.python.org/3/library/exceptions.html#KeyError) if the *key* does not exist:
 
   ```python
+  from collections import OrderedDict 
   >>> d = OrderedDict.fromkeys('abcde')
   >>> d.move_to_end('b')
   >>> ''.join(d.keys())
@@ -197,8 +198,8 @@ class Solution:
   >>> d.move_to_end('b', last=False)
   >>> ''.join(d.keys())
   'bacde'
-  ```
-
+```
+  
   
 
 ### Compare float with None: `float('inf')`
