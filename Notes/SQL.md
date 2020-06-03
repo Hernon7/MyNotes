@@ -188,6 +188,9 @@ from Movie_Rating
 left join Movies
 on Movies.movie_id = Movie_Rating.movie_id
 where to_char(Movie_Rating.created_at, 'mm') = 02
+-- MySQL
+-- Convert the current date and time to string (year-month-day)
+-- SELECT DATE_FORMAT(SYSDATE(), '%Y-%m-%d');
 group by Movies.title
 order by avg_rating desc, Movies.title asc
 )
