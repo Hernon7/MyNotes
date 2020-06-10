@@ -93,6 +93,42 @@ order by gender, day;
 
 
 
+### Consecutive Days
+
+```sql
+--find id with more than 5 consecutive days
+SELECT 
+	DISTINCT x.id
+FROM 
+	Demo_table x, Demo_table y
+WHERE 
+	x.id=y.id AND
+	DATEDIFF(x.demo_date, y.demo_date) BETWEEN 1 AND 4
+GROUP BY 
+	x.id, x.demo_date
+HAVING 
+	COUNT(DISTINCT y.demo_date)=4;
+
+--with lag() function
+select 
+	id,  
+	demo_date, 
+	lag(demo_date,5,'1990-01-01') over ( partition by l.id order by demo_date) as lag_5_days 
+from 
+	Demo_table 
+```
+
+```sql
+--with dense_rank
+SELECT  id,
+        demo_date,
+        DATE_ADD(demo_date,INTERVAL
+        	-(dense_rank() OVER(PARTITION BY id ORDER BY demo_date)-1) DAY) GroupingSet
+    FROM Demo_table
+```
+
+
+
 ### Find item having at least value
 
 ```sql
@@ -100,6 +136,8 @@ select item form  table
 group by item
 having count(*) >= num;
 ```
+
+
 
 ### Calculate moving average with `datediff`
 
