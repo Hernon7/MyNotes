@@ -219,6 +219,12 @@ def hashLetter(str):
 
 ```
 
+```python
+#use Counter to implement same funtionality
+import collections
+count = collections.Counter(s)
+```
+
 
 
 ## Window Sliding Technique
