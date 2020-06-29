@@ -258,8 +258,6 @@ anime.sample(frac=0.25)
 #### Generate the boolean flags indicating missing rows and columns
 
 ```python
-missingRows = pd.isnull(col).sum(axis=1) > 0
-missingCols = pd.isnull(col).sum(axis=0) > 0
 #find cols with missing values:
 df.columns[df.isnull().sum(axis=0)>0]
 crimes.columns[crimes.isnull().any()]
@@ -466,6 +464,25 @@ def assess_NA(data):
     df_NA = df_NA[ (df_NA.T != 0).any() ]
 
     return df_NA
+  
+def missing_zero_values_table(df):
+        zero_val = (df == 0.00).astype(int).sum(axis=0)
+        mis_val = df.isnull().sum()
+        mis_val_percent = 100 * df.isnull().sum() / len(df)
+        mz_table = pd.concat([zero_val, mis_val, mis_val_percent], axis=1)
+        mz_table = mz_table.rename(
+        columns = {0 : 'Zero Values', 1 : 'Missing Values', 2 : '% of Total Values'})
+        mz_table['Total Zero Missing Values'] = mz_table['Zero Values'] + mz_table['Missing Values']
+        mz_table['% Total Zero Missing Values'] = 100 * mz_table['Total Zero Missing Values'] / len(df)
+        mz_table['Data Type'] = df.dtypes
+        mz_table = mz_table[
+            mz_table.iloc[:,1] != 0].sort_values(
+        '% of Total Values', ascending=False).round(1)
+        print ("Your selected dataframe has " + str(df.shape[1]) + " columns and " + str(df.shape[0]) + " Rows.\n"      
+            "There are " + str(mz_table.shape[0]) +
+              " columns that have missing values.")
+#         mz_table.to_excel('path/missing_and_zero_values.xlsx', freeze_panes=(1,0), index = False)
+        return mz_table
 ```
 
 ### Function for unique values
