@@ -243,7 +243,7 @@ print('There are %d distinct value' %(df['col'].unique().shape))
 ```
 
 
-```
+
 
 #### Sample data
 
