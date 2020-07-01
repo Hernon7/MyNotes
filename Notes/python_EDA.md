@@ -36,7 +36,17 @@ pd.set_option('display.max_rows', None)
 
 ### Dataframe Properties <a name="DataframeProperties"></a>
 
+#### Load Data
+
+```python
+#Load data from Excel tab
+df = pd.read_excel (r'filename.xlsx', sheet_name='tab1',header = 1)
+```
+
+
+
 #### Basic Info
+
 ```python
 df.info()
 df.describe()
@@ -148,6 +158,15 @@ anime[1:3]
 ```python
 anime[anime['rating'] > 8]	
 ```
+#### Filter by list
+
+```python
+#in list
+df[df['col'].isin(list)]
+# not in list
+df[~df['col'].isin(list)]
+```
+
 #### Filter columns that contain specific string
 
 ```python
