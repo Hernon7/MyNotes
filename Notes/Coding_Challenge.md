@@ -209,7 +209,11 @@ class Solution:
 
 
 
-## Store string with Hashing map
+## String
+
+
+
+### Store string with Hashing map
 
 ```python
 def hashLetter(str):
@@ -228,7 +232,7 @@ count = collections.Counter(s)
 
 
 
-## Remove unwanted item in string
+### Remove unwanted item in string
 
 The `lstrip()` method removes any leading characters (space is the default leading character to remove)
 
@@ -240,6 +244,20 @@ x = txt.lstrip(",.asw")
 print(x)
 
 result: 'banana'
+```
+
+### Python String isdigit() and its application
+
+In Python, `isdigit()` is a built-in method used for string handling.
+The isdigit() methods returns “True” if all characters in the string are digits, Otherwise, It returns “False”.
+This function is used to check if the argument contains digits such as : **0123456789**
+
+```python
+Input : string = '15460'
+Output : True
+
+Input : string = '154ayush60'
+Output : False
 ```
 
 
