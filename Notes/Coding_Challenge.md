@@ -210,6 +210,7 @@ class Solution:
 
 
 ## Store string with Hashing map
+
 ```python
 def hashLetter(str):
     record = [0]*26
@@ -223,6 +224,22 @@ def hashLetter(str):
 #use Counter to implement same funtionality
 import collections
 count = collections.Counter(s)
+```
+
+
+
+## Remove unwanted item in string
+
+The `lstrip()` method removes any leading characters (space is the default leading character to remove)
+
+```python
+txt = ",,,,,ssaaww.....banana"
+
+x = txt.lstrip(",.asw")
+
+print(x)
+
+result: 'banana'
 ```
 
 
