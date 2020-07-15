@@ -30,6 +30,12 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 ```
 
+```python
+#plotly in Jupyter notebook
+import plotly.offline as pyo
+pyo.init_notebook_mode()
+```
+
 
 
 ## Dataframe
@@ -211,6 +217,8 @@ df.melt(id_vars=["Items"], var_name="Year", value_name="Values")
 groupby_A = df.groupby('A')
 X = groupby_A.agg({'B': ['min', 'max'], 'C': 'sum'})
 X.reset_index().pivot(index='A', columns='C', values='sum')
+#count the row number
+groupby_A.size().reset_index(name='counts')
 ```
 
 | Function   |             Description             |
