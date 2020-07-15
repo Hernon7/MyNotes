@@ -41,6 +41,17 @@ def fill_missing(df,strategy='median'):
     return df_tr
 ```
 
+```python
+# insert categorical missing value based on distribution
+def fillingOnDistribute(df_missing):
+    dis = df_missing.value_counts(normalize=True)
+    missing = df_missing.isnull()
+    df_missing.loc[missing] = np.random.choice(dis.index, size=sum(missing),p=dis.values)
+    return df_missing
+```
+
+
+
 #### Categorical varible
 
 ##### OrdinalEncoder
