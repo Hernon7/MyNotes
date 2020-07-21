@@ -36,7 +36,14 @@ import plotly.offline as pyo
 pyo.init_notebook_mode()
 ```
 
+```python
+#use pycodestyle
+!pip install pycodestyle pycodestyle_magic
+%load_ext pycodestyle_magic
+%%pycodestyle
+```
 
+Run `pylint` run the code
 
 ## Dataframe
 
