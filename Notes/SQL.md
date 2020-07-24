@@ -107,6 +107,20 @@ Returns NULL when there are no non-NULL values.
 
 
 
+### `SUBSTR()` Function
+
+The SUBSTR() function extracts a substring from a string (starting at any position).
+
+**Syntax**
+
+`SUBSTR(*string*, *start*, *length*)`
+
+```sql
+--Extract a substring from a string (start at position 5, extract 3 characters):
+SELECT SUBSTR("SQL Tutorial", 5, 3) AS ExtractString;
+
+```
+
 ### Consecutive Days
 
 ```sql
