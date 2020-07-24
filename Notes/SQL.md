@@ -93,6 +93,20 @@ order by gender, day;
 
 
 
+### MySQL `GROUP_CONCAT()` function
+
+MySQL GROUP_CONCAT() function returns a string with concatenated non-NULL value from a group.
+
+Returns NULL when there are no non-NULL values.
+
+**Syntax:**
+
+`GROUP_CONCAT(expr);`
+
+![](https://www.w3resource.com/w3r_images/mysql-group-concat-example1.gif)
+
+
+
 ### Consecutive Days
 
 ```sql
