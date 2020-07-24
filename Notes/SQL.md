@@ -121,6 +121,8 @@ SELECT SUBSTR("SQL Tutorial", 5, 3) AS ExtractString;
 
 ```
 
+
+
 ### Consecutive Days
 
 ```sql
