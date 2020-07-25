@@ -41,6 +41,8 @@ pyo.init_notebook_mode()
 !pip install pycodestyle pycodestyle_magic
 %load_ext pycodestyle_magic
 %%pycodestyle
+#use autopep8
+import autopep8
 ```
 
 Run `pylint` run the code
