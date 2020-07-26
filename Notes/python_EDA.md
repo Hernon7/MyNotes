@@ -3,18 +3,19 @@
 ## Table of contents
 
 1. [Import pakages](#Importpackages)
-2. [ Dataframe](#Dataframe)
+2. [Python & DB](#Database)
+3. [ Dataframe](#Dataframe)
     1. [Dataframe Properties](#DataframeProperties)
     2. [Missing Values](#MissingValues)
     3. [Numerical Values](#NumericalValues)
     4. [Categoerical Values](#CategoericalValues)
     5. [Time Values](#TimeValues)
-3. [List](#ListProperties)
-4. [Dictionary](#DictionaryProperties)
-5. [String](#StringProperties)
-6. [Stats Test](#StatsTest)
-7. [Data Visualization](#DataVisualization)
-8. [Functions](#UsefulFunctions)
+4. [List](#ListProperties)
+5. [Dictionary](#DictionaryProperties)
+6. [String](#StringProperties)
+7. [Stats Test](#StatsTest)
+8. [Data Visualization](#DataVisualization)
+9. [Functions](#UsefulFunctions)
 
 
 ## Import packages <a name="Importpackages"></a>
@@ -47,7 +48,17 @@ import autopep8
 
 Run `pylint` run the code
 
-## Dataframe
+
+
+## Python & DB <a name="Database"></a>
+
+
+
+
+
+
+
+## Dataframe <a name="Dataframe"></a>
 
 ### Dataframe Properties <a name="DataframeProperties"></a>
 
