@@ -52,6 +52,26 @@ Run `pylint` run the code
 
 ## Python & DB <a name="Database"></a>
 
+```python
+#load data from database to dataframe
+from sqlalchemy import create_engine
+import pymysql
+engine = create_engine('mysql+pymysql://'+usrname+':'+psw+'@'+host+':'+port+'/'+db, echo=False)
+conn = engine.raw_connection()
+df = pd.read_sql("SELECT * FROM table;",con = conn) 
+```
+
+```python
+#make connection
+%load_ext sql
+%sql mysql+pymysql://[usrname]:[psw][host]:[port]/[db]
+#select data using `magic`
+%%sql 
+select * from table
+#or
+result = %sql select * from table
+```
+
 
 
 
