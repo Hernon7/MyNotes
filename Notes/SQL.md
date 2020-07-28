@@ -93,6 +93,43 @@ order by gender, day;
 
 
 
+## MySQL `LEAD()` and  `LAG()` Function
+
+The `LEAD()` function is a [window function](https://www.mysqltutorial.org/mysql-window-functions/) that allows you to look forward a number of rows and access data of that row from the current row.
+
+Similar to the `LAG()` function, the `LEAD()` function is very useful for calculating the difference between the current row and the subsequent row within the same result set.
+
+The `LAG()` function is used to get value from row that precedes the current row.
+
+The `LEAD()` function is used to get value from row that succedes the current row.
+
+The following shows the syntax of the `LEAD()` function:
+
+```sql
+LEAD(<expression>[,offset[, default_value]]) OVER (
+    PARTITION BY (expr)
+    ORDER BY (expr)
+)
+```
+
+```sql
+SELECT 
+    customerName,
+    orderDate,
+    LEAD(orderDate,1) OVER (
+        PARTITION BY customerNumber
+        ORDER BY orderDate ) nextOrderDate
+FROM 
+    orders
+INNER JOIN customers USING (customerNumber);
+```
+
+
+
+![](https://sp.mysqltutorial.org/wp-content/uploads/2018/08/MySQL-LEAD-Function-Example.png)
+
+
+
 ### MySQL `GROUP_CONCAT()` function
 
 MySQL GROUP_CONCAT() function returns a string with concatenated non-NULL value from a group.
