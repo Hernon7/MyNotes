@@ -144,6 +144,48 @@ Returns NULL when there are no non-NULL values.
 
 
 
+### MySQL `COALESCE( )` Function
+
+The MySQL **COALESCE()** function is used for returning the first non-null value in a list of expressions. If all the values in the list evaluate to NULL, then the COALESCE() function returns NULL.
+
+The COALESCE() function accepts one parameter which is the list which can contain various values. The value returned by the MySQL COALESCE() function is the first non-null value in a list of expressions or NULL if all the values in a list are NULL.
+
+**Syntax:**
+
+```sql
+COALESCE(value_1, value_2, ...., value_n)
+```
+
+```sql
+coalesce(input_element, 0) = ifnull(input_element, 0)
+```
+
+
+
+### MySQL `FLOOR()` function
+
+MySQL FLOOR() returns the largest integer value not greater than a number specified as an argument.
+
+```sql
+mysql> SELECT FLOOR(1.72);
++-------------+
+| FLOOR(1.72) |
++-------------+
+|           1 | 
++-------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT FLOOR (-2.72);
++---------------+
+| FLOOR (-2.72) |
++---------------+
+|            -3 | 
++---------------+
+1 row in set (0.00 sec)
+```
+
+
+
 ### `SUBSTR()` Function
 
 The SUBSTR() function extracts a substring from a string (starting at any position).
