@@ -202,6 +202,47 @@ SELECT SUBSTR("SQL Tutorial", 5, 3) AS ExtractString;
 
 
 
+## MySQL `LEFT()` function
+
+```sql
+LEFT (string, length)
+```
+
+![](https://www.w3resource.com/w3r_images/mysql-left-function.gif)
+
+
+
+## MySQL `EXTRACT()` Function
+
+**The part to extract. Can be one of the following:**
+
+* MICROSECOND
+* SECOND
+* MINUTE
+* HOUR
+* DAY
+* WEEK
+* MONTH
+* QUARTER
+* YEAR
+* SECOND_MICROSECOND
+* MINUTE_MICROSECOND
+* MINUTE_SECOND
+* HOUR_MICROSECOND
+* HOUR_SECOND
+* HOUR_MINUTE
+* DAY_MICROSECOND
+* DAY_SECOND
+* DAY_MINUTE
+* DAY_HOUR
+* YEAR_MONTH
+
+```sql
+SELECT EXTRACT(MONTH FROM "2017-06-15");
+```
+
+
+
 ### Consecutive Days
 
 ```sql
