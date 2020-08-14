@@ -2,13 +2,11 @@
 
 
 
-## Notes
+## Notes: Python and SQL Notes
 
-**Python and SQL Notes**
+**[PythonEDA](https://github.com/Hernon7/MyNotes/blob/master/Notes/python_EDA.md)**
 
+**[SQL](https://github.com/Hernon7/MyNotes/blob/master/Notes/SQL.md)**
 
-
-## DataStructure&Algorithm
-
-**Data Structure and Algorithm**
+## Data Structure & Algorithm
 
