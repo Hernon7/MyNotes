@@ -93,6 +93,18 @@ order by gender, day;
 
 
 
+## `TRIM` Funtion
+
+The TRIM() function removes the space character OR other specified characters from the start or end of a string.
+
+By default, the TRIM() function removes leading and trailing spaces from a string.
+
+```sql
+TRIM([characters FROM ]string)
+```
+
+
+
 ## MySQL `LEAD()` and  `LAG()` Function
 
 The `LEAD()` function is a [window function](https://www.mysqltutorial.org/mysql-window-functions/) that allows you to look forward a number of rows and access data of that row from the current row.
