@@ -157,6 +157,34 @@ df = pd.DataFrame([[1,'Bob', 8000],
                   [3,'Scott', 20]], columns=['id','name', 'power level'])df.append(df.sum(axis=0), ignore_index=True)
 ```
 
+#### Compare between cols
+```python
+import pandas as pd
+
+>>> df
+  country
+0        US
+1        UK
+2   Germany
+3     China
+>>> countries_to_keep
+['UK', 'China']
+>>> df.country.isin(countries_to_keep)
+0    False
+1     True
+2    False
+3     True
+Name: country, dtype: bool
+>>> df[df.country.isin(countries_to_keep)]
+  country
+1        UK
+3     China
+>>> df[~df.country.isin(countries_to_keep)]
+  country
+0        US
+2   Germany
+```
+
 #### Concatenate 2 dataframes
 
 ```python
@@ -225,8 +253,6 @@ Sort data frame by values in a column.
 ```
 anime.sort_values('rating', ascending=False)
 ```
-
-#### Melt
 
 #### Melt
 

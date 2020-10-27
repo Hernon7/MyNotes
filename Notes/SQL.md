@@ -2,7 +2,43 @@
 
 
 
-## **SQL**(MySQL or Oracle SQL)
+## **SQL**
+
+
+
+### Check tables and Columns
+
+```sql
+-- MySQL
+show tables;
+show columns from [tablename];
+
+-- SQL Server
+SELECT name FROM sys.tables
+where name like '[keyword]%';
+
+SELECT 
+		NAME, COLUMN_ID
+FROM 
+  SYS.COLUMNS 
+WHERE 
+  object_id = OBJECT_ID('Sales.Orders');
+
+-- Vertica
+SHOW DATABASE DEFAULT ALL;
+
+select
+    table_schema,table_name
+from
+    v_catalog.tables
+order by
+    table_schema,table_name;
+
+SELECT 
+  table_schema, table_name, column_name, data_type, is_nullable
+FROM columns 
+WHERE table_schema = '[table_schema]';
+```
 
 
 
