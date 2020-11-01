@@ -497,6 +497,37 @@ def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300):
     plt.savefig(path, format=fig_extension, dpi=resolution)
 ```
 
+### Add Hover and Hover_data
+
+```python
+fig = px.box(df, y="col_name", hover_name='Part Number',
+             hover_data=["col1","col2"], width=400, height=400)
+fig.show()
+```
+
+### Add `log` Scale on Axis
+
+```python
+fig.update_xaxes(type="log")
+fig.update_yaxes(type="log")
+```
+
+### Add Vertical and Horizontal Line
+
+```python
+fig.add_hline(y=y_value)
+fig.add_vline(x=x_value)
+```
+
+### Boxplot
+
+```python
+import plotly.express as px
+df = px.data.tips()
+fig = px.box(df, y="total_bill")
+fig.show()
+```
+
 ### Historical Charts
 
 ```python
