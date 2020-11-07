@@ -74,10 +74,6 @@ result = %sql select * from table
 
 
 
-
-
-
-
 ## Dataframe <a name="Dataframe"></a>
 
 ### Dataframe Properties <a name="DataframeProperties"></a>
@@ -89,7 +85,22 @@ result = %sql select * from table
 df = pd.read_excel (r'filename.xlsx', sheet_name='tab1',header = 1)
 ```
 
+#### Load Multi CSV Files From a Folder
 
+```python
+import glob
+
+path = r'C:\Users\henali\Desktop\InvSnapshot\data' # use your path
+all_files = glob.glob(path + "/*.csv")
+
+li = []
+
+for filename in all_files:
+    df = pd.read_csv(filename, index_col=None, header=0)
+    li.append(df)
+
+frame = pd.concat(li, axis=0, ignore_index=True)
+```
 
 #### Basic Info
 
@@ -198,7 +209,7 @@ pd.concat([df1, df2], ignore_index=True)
 This functions like a SQL left join, when you have 2 data frames and want to join on a column.
 
 ```python
-rating.merge(anime, left_on=’anime_id’, right_on=’anime_id’, suffixes=(‘_left’, ‘_right’))
+rating.merge(anime, left_on='anime_id', right_on='anime_id', suffixes=('_left', '_right'))
 ```
 
 #### Retrieve rows with matching index values
@@ -336,8 +347,6 @@ print('There are %d distinct value' %(df['col'].unique().shape))
 ```
 
 
-
-
 #### Sample data
 
 ```python
@@ -439,11 +448,7 @@ ans.index = ['winter','spring','summer','autumn']
 ans
 ```
 
-
-
 ---
-
-
 
 ## List Properties <a name="ListProperties"></a>
 
@@ -454,8 +459,6 @@ flat_list = [item for sublist in l for item in sublist]
 flatten = lambda l: [item for sublist in l for item in sublist]
 ```
 ---
-
-
 
 ## Dictionary Properties <a name="DictionaryProperties"></a>
 
@@ -470,9 +473,8 @@ sorted(scores.items(), key = lambda x: x[1],reverse=True)[0:10]
 
 ## String Properties <a name="StringProperties"></a>
 
-
-
 ---
+
 ## Stats Test <a name="StatsTest"></a>
 >- The p-value is slightly below the  5%  threshold.
 >- Based on  5%  condidence, we can reject the null hypothesis and accept the alternative.
