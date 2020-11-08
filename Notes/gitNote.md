@@ -98,6 +98,12 @@ replacing `<add-your-name>` with the name of the branch you created earlier.
 git checkout -b <name> <template>
 ```
 
+## Change template of the current branch
+
+```
+git rebase
+```
+
 ## Back to master
 
 ```
@@ -116,7 +122,11 @@ git branch
 git merge <branchname>
 ```
 
+## Check remote repo
 
+```
+git fetch
+```
 
 ## Keeping your fork synced with this repository
 
