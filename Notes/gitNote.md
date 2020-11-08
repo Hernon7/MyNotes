@@ -18,7 +18,15 @@ For example:
 git clone https://github.com/this-is-you/first-contributions.git
 ```
 
+## Git File Status
 
+![](https://git-scm.com/book/en/v2/images/lifecycle.png)
+
+## Edit Git Commend Alias
+
+```
+
+```
 
 ## Create a branch
 
@@ -60,7 +68,19 @@ git commit -m "Add <your-name> to Contributors list"
 
 replacing `<your-name>` with your name.
 
+## Reset the change
 
+```
+git reset <commit id> -- hard or -- soft or -- mixed
+git pull
+```
+
+## Check log
+
+```
+git log
+git reflog
+```
 
 ## Push changes
 
@@ -71,6 +91,30 @@ git push origin <add-your-name>
 ```
 
 replacing `<add-your-name>` with the name of the branch you created earlier.
+
+## Create new branch
+
+```
+git checkout -b <name> <template>
+```
+
+## Back to master
+
+```
+git checkout master
+```
+
+## Check all branch
+
+```
+git branch
+```
+
+## Merge
+
+```
+git merge <branchname>
+```
 
 
 
