@@ -257,6 +257,14 @@ df[~df['col'].isin(list)]
 ```python
 quantity_col = [col for col in rawdf.columns if 'Quantity' in col]
 ```
+#### Filter based on consition of columns
+
+```python
+agg_df = X[(X['Rack Type'] == "High Bay") | (X['Rack Type'] == "Bulk")]
+result_df['Pallet Usage'] =  np.where(Y['Rack Type'] == 'High Bay', Y.location, Y.countLP/3)
+X['Rack Type'] = X['location'].apply(lambda x: 'High Bay' if "-HB-" in x else 'Bulk' if "-BK-" in x else "Others" )
+```
+
 #### sort_values
 
 Sort data frame by values in a column.
@@ -320,6 +328,12 @@ groupby_A.size().reset_index(name='counts')
 | `cumprod`  |         Cumulative product          |
 | `cummax`   |         Cumulative maximum          |
 | `cummin`   |         Cumulative minimum          |
+#### Reset level after group by operation
+
+```python
+X = X.droplevel(1,axis = 1)
+```
+
 #### Counts
 
 ```python
@@ -558,13 +572,13 @@ plt.legend()
 ### Correlation Charts
 
 ```python
-corr_matrix = df.corr()
-corr_matrix["col"].sort_values(ascending=False)
-from pandas.plotting import scatter_matrix
+import seaborn as sn
 
-attributes = ["median_house_value", "median_income", "total_rooms",
-              "housing_median_age"]
-scatter_matrix(housing[attributes], figsize=(12, 8))
+fig, ax = plt.subplots(figsize=(13,13))
+sn.set_style("white")
+corrMatrix = X.corr()
+sn.heatmap(corrMatrix, annot=True)
+plt.savefig('corrPlot.png',  format='png',transparent=True)
 ```
 ---
 ## Useful Functions <a name="UsefulFunctions"></a>

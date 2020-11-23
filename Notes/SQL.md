@@ -4,6 +4,25 @@
 
 ## **SQL**
 
+## Select projection  in Vertica
+
+```sql
+select projection_schema,
+       projection_name,
+       anchor_table_name as table_name,
+       case when is_up_to_date then 'YES'
+            else 'NO' end as is_up_to_date,
+       case when is_prejoin then 'YES'
+            else 'NO' end as is_prejoin,
+       case when is_super_projection then 'YES'
+            else 'NO' end as is_super_projection,
+       case when is_aggregate_projection then 'YES'
+            else 'NO' end as is_aggregate_projection
+from v_catalog.projections
+order by projection_schema,
+         projection_name;
+```
+
 
 
 ### Check tables and Columns
