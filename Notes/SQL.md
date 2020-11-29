@@ -73,7 +73,7 @@ WHERE table_schema = '[table_schema]';
   FROM ExamResult;
   ```
 
-  ![](https://raw.githubusercontent.com/Hernon7/ImageUploaders/master/img/row_number-sql-rank-function-20201123222347331.png?token=AKS45J4VKUOUZZUTYXQIGTK7XPDDG)
+  ![](https://www.sqlshack.com/wp-content/uploads/2019/07/row_number-sql-rank-function.png)
 
 * `RANK()`:
 
@@ -89,7 +89,7 @@ WHERE table_schema = '[table_schema]';
 
   
 
-  ![](https://raw.githubusercontent.com/Hernon7/ImageUploaders/master/img/ranksql-rank-function-20201123222353188.png?token=AKS45J4DWZKOMIKVCJX7N6S7XPDDU)
+  ![](https://www.sqlshack.com/wp-content/uploads/2019/07/ranksql-rank-function.png)
 
 * `DENSE_RANK()`: if we have duplicate values, SQL assigns different ranks to those rows as well. Ideally, we should get the same rank for duplicate or similar values.
 
@@ -104,7 +104,7 @@ WHERE table_schema = '[table_schema]';
 
   
 
-  ![](https://raw.githubusercontent.com/Hernon7/ImageUploaders/master/img/dense_ranksql-rank-function-20201123222415172.png?token=AKS45J2U346SEREB46W57KK7XPDFQ)
+  ![](https://www.sqlshack.com/wp-content/uploads/2019/07/dense_ranksql-rank-function.png)
 
 ### Sum with partition
 
@@ -193,7 +193,7 @@ INNER JOIN customers USING (customerNumber);
 
 
 
-![](https://raw.githubusercontent.com/Hernon7/ImageUploaders/master/img/MySQL-LEAD-Function-Example-20201123222334350.png?token=AKS45J2A6GR4IYRW77KZJYC7XPDCM)
+![](https://sp.mysqltutorial.org/wp-content/uploads/2018/08/MySQL-LEAD-Function-Example.png)
 
 
 
@@ -207,7 +207,7 @@ Returns NULL when there are no non-NULL values.
 
 `GROUP_CONCAT(expr);`
 
-![](https://raw.githubusercontent.com/Hernon7/ImageUploaders/master/img/mysql-group-concat-example1-20201123222151685-20201123222216245.gif?token=AKS45J3UUUQW76N5WN36USC7XPC5S)
+![](https://www.w3resource.com/w3r_images/mysql-group-concat-example1.gif)
 
 
 
@@ -275,7 +275,7 @@ SELECT SUBSTR("SQL Tutorial", 5, 3) AS ExtractString;
 LEFT (string, length)
 ```
 
-![](https://raw.githubusercontent.com/Hernon7/ImageUploaders/master/img/mysql-left-function-20201123222317397.gif?token=AKS45J3VQ75KCFZTBGRQ5US7XPDBK)
+![](https://www.w3resource.com/w3r_images/mysql-left-function.gif)
 
 
 
