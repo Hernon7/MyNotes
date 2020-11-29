@@ -412,6 +412,26 @@ having
 
 
 
+### Add to date time
+
+```sql
+-- MySQL
+select DATE_ADD(NOW(),INTERVAL 8 HOUR);
+--Vertica
+select TIMESTAMPADD(HOUR,8, now());
+```
+
+
+
+### Time Difference
+
+```sql
+--Vertica/MySQL
+select TIMESTAMPDIFF(MINUTE,TIMESTAMPADD(HOUR,8, now()),now());
+```
+
+
+
 ### Convert date time
 
 ```sql
