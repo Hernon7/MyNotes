@@ -586,7 +586,7 @@ plt.savefig('corrPlot.png',  format='png',transparent=True)
 ### Function showing missing values
 
 ```python
-def assess_NA(data):
+def assess_na(data):
     """
     Returns a pandas dataframe denoting the total number of NA values and the percentage of NA values in each column.
     The column names are noted on the index.
@@ -636,11 +636,16 @@ def assess_unique(data):
     return df
 ```
 
-### Check NaN of a value
-
-The usual way to test for a NaN is to see if it's equal to itself:
+### Function to check duplicate value
 
 ```python
-def isNaN(num):
-    return num != num
+# find duplicate data and index
+def find_duplicate(df_obj,cols_list):
+    """
+    input: pandas.DataFrame
+    input: List[col]
+    Output: pandas.DataFrame
+    """
+    return df_obj[df_obj.duplicated(cols_list,keep='last') | df_obj.duplicated(cols_list)].sort_values(by=cols_list)
 ```
+
