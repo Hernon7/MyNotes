@@ -566,9 +566,16 @@ ALTER TABLE table_name
 DROP INDEX index_name;
 ```
 
----
+#### Using Regex in SQL 
 
+```sql
+-- vertica
+REGEXP_LIKE(l.name,'^TY-C([0-1][1-9]|2[0-5])')
+```
 
+In Regex, user cannot just write [01-25], to filter number from 1 to 25.
+
+In this case, `[0-1][1-9]` means numbers' first digit start from 0 to 1 and `[1-9]` means the last digit start from 1 to 9.
 
 ## PL/SQL
 
