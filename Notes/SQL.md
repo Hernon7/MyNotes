@@ -39,7 +39,7 @@ where name like '[keyword]%';
 SELECT 
 		NAME, COLUMN_ID
 FROM 
-  SYS.COLUMNS 
+  SYS.COLUMNS
 WHERE 
   object_id = OBJECT_ID('Sales.Orders');
 
@@ -423,7 +423,16 @@ select TIMESTAMPADD(HOUR,8, now());
 
 
 
-### Time Difference
+### Combine datetime and number to create timestamp
+
+```sql
+-- vertica
+select sampledate + (samplehour/24) + interval '8 hour' as sampletimestamp;
+```
+
+
+
+### Time Difference
 
 ```sql
 --Vertica/MySQL
@@ -565,6 +574,36 @@ DROP INDEX index_name;
 ALTER TABLE table_name
 DROP INDEX index_name;
 ```
+
+### MySQL recursive CTE
+
+A recursive [common table expression](https://www.mysqltutorial.org/mysql-cte/) (CTE) is a CTE that has a subquery which refers to the CTE name itself. The following illustrates the syntax of a recursive CTE
+
+```sql
+WITH RECURSIVE cte_name AS (
+    initial_query  -- anchor member
+    UNION ALL
+    recursive_query -- recursive member that references to the CTE name
+)
+SELECT * FROM cte_name;
+Code language: SQL (Structured Query Language) (sql)
+```
+
+A recursive CTE consists of three main parts:
+
+- An initial [query](https://www.mysqltutorial.org/mysql-select-statement-query-data.aspx) that forms the base result set of the CTE structure. The initial query part is referred to as an anchor member.
+- A recursive query part is a query that references to the CTE name, therefore, it is called a recursive member. The recursive member is joined with the anchor member by a`UNION ALL` or `UNION DISTINCT` operator.
+- A termination condition that ensures the recursion stops when the recursive member returns no row.
+
+The execution order of a recursive CTE is as follows:
+
+1. First, separate the members into two: anchor and recursive members.
+2. Next, execute the anchor member to form the base result set ( `R0`) and use this base result set for the next iteration.
+3. Then, execute the recursive member with `Ri` result set as an input and make `Ri+1` as an output.
+4. After that, repeat the third step until the recursive member returns an empty result set, in other words, the termination condition is met.
+5. Finally, combine result sets from R0 to Rn using `UNION ALL` operator.
+
+![](https://sp.mysqltutorial.org/wp-content/uploads/2017/07/MySQL-Recursive-CTE.png)
 
 #### Using Regex in SQL 
 
