@@ -4,7 +4,7 @@
 
 ## **SQL**
 
-## Select projection  in Vertica
+### Select projection  in Vertica
 
 ```sql
 select projection_schema,
